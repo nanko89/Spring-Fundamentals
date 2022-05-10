@@ -1,5 +1,7 @@
 package com.example.springmobilele.service;
 
+import com.example.springmobilele.models.service.UserLoginServiceModel;
+
 public interface UserService {
-    boolean login(String username, String password);
+    boolean login(UserLoginServiceModel userLoginServiceModel);
 }

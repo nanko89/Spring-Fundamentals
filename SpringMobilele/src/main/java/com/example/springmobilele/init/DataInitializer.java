@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-
 @Component
 public class DataInitializer implements CommandLineRunner {
     private final BrandRepository brandRepository;
@@ -40,7 +39,6 @@ public class DataInitializer implements CommandLineRunner {
                     .setLastName("Smith")
                     .setUsername("root")
                     .setPassword(passwordEncoder.encode("12345"));
-
 
             userRepository.save(admin);
         }
