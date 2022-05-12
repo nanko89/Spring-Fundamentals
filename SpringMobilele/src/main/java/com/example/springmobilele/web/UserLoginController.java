@@ -1,7 +1,7 @@
 package com.example.springmobilele.web;
 
 
-import com.example.springmobilele.models.dto.UserLoginDto;
+import com.example.springmobilele.models.binding.UserLoginDto;
 import com.example.springmobilele.models.service.UserLoginServiceModel;
 import com.example.springmobilele.service.UserService;
 import org.slf4j.Logger;

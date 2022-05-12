@@ -1,4 +1,4 @@
-package com.example.springmobilele.models.dto;
+package com.example.springmobilele.models.binding;
 
 public class UserLoginDto {
 
