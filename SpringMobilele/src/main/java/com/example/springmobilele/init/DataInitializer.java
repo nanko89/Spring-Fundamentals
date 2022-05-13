@@ -2,10 +2,10 @@ package com.example.springmobilele.init;
 
 import com.example.springmobilele.models.entity.Brand;
 import com.example.springmobilele.models.entity.Model;
-import com.example.springmobilele.models.entity.User;
 import com.example.springmobilele.models.entity.enums.Category;
-import com.example.springmobilele.repository.BrandRepository;
-import com.example.springmobilele.repository.UserRepository;
+import com.example.springmobilele.service.BrandService;
+import com.example.springmobilele.service.ModelService;
+import com.example.springmobilele.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -15,57 +15,26 @@ import java.util.Set;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
-    private final BrandRepository brandRepository;
-    private final UserRepository userRepository;
+    private final BrandService brandService;
+    private final ModelService modelService;
+    private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
-    public DataInitializer(BrandRepository brandRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.brandRepository = brandRepository;
-        this.userRepository = userRepository;
+    public DataInitializer(BrandService brandService, ModelService modelService, UserService userService, PasswordEncoder passwordEncoder) {
+        this.brandService = brandService;
+        this.modelService = modelService;
+        this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public void run(String... args) {
         initializeBrandAndModels();
-        initializeUsers();
     }
-
-    private void initializeUsers() {
-        if (userRepository.count() == 0) {
-            User admin = new User();
-            admin.setActive(true)
-                    .setFirstName("John")
-                    .setLastName("Smith")
-                    .setUsername("root")
-                    .setPassword(passwordEncoder.encode("12345"));
-
-            userRepository.save(admin);
-        }
-    }
-
     private void initializeBrandAndModels() {
-        if (brandRepository.count() == 0) {
-            Brand bmw = new Brand();
-            bmw.setName("BMW").setCreated(LocalDateTime.now());
 
-            Model x5 = new Model();
-            x5.setBrand(bmw)
-                    .setCategory(Category.CAR)
-                    .setStartYear(1999)
-                    .setImageUrl("https://cdn.motor1.com/images/mgl/P3G20A/s3/bmw-x5-m-facelift-rendering-by-kolesa.ru.jpg");
+        userService.initializeUserAndRole();
 
 
-            Model x6 = new Model();
-            x5.setBrand(bmw)
-                    .setCategory(Category.CAR)
-                    .setStartYear(2008)
-                    .setImageUrl("https://carsalesbase.com/wp-content/uploads/2014/01/BMW_X6-auto-sales-statistics-Europe.jpg");
-
-
-            bmw.setModels(Set.of(x5, x6));
-
-            brandRepository.save(bmw);
-        }
     }
 }

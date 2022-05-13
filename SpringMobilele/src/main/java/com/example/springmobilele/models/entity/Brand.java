@@ -3,6 +3,7 @@ package com.example.springmobilele.models.entity;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,7 +22,7 @@ public class Brand extends BaseEntity {
         return models;
     }
 
-    public Brand setModels(Set<Model> models) {
+    public Brand setModels(List<Model> models) {
         this.models = models;
         return this;
     }

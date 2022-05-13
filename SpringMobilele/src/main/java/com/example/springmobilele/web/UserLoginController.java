@@ -39,6 +39,9 @@ public class UserLoginController {
                 userLoginDto.getUsername(),
                 loginSuccessful);
 
+        if(loginSuccessful){
+            return "redirect:/";
+        }
 
         return "redirect:/users/login";
     }

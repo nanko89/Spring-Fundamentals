@@ -45,4 +45,9 @@ public class BaseEntity {
     public void beforeCreate(){
         this.created = LocalDateTime.now();
     }
+
+    @PostPersist
+    public void onUpadte(){
+        this.modified = LocalDateTime.now();
+    }
 }

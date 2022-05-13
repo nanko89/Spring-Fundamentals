@@ -1,9 +1,7 @@
 package com.example.springmobilele.models.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -24,8 +22,8 @@ public class User extends BaseEntity {
     @Column(name = "is_active", nullable = false)
     private boolean isActive;
 
-    @ManyToOne
-    private UserRole userRole;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<UserRole> userRole;
 
     @Column(name = "image_url")
     private String imageUrl;
@@ -78,11 +76,11 @@ public class User extends BaseEntity {
         return this;
     }
 
-    public UserRole getUserRole() {
+    public Set<UserRole> getUserRole() {
         return userRole;
     }
 
-    public User setUserRole(UserRole userRole) {
+    public User setUserRole(Set<UserRole> userRole) {
         this.userRole = userRole;
         return this;
     }
