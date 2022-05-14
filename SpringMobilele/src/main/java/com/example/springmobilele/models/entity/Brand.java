@@ -13,12 +13,12 @@ public class Brand extends BaseEntity {
     private String name;
 
     @OneToMany(mappedBy = "brand")
-    private Set<Model> models;
+    private List<Model> models;
 
     public Brand() {
     }
 
-    public Set<Model> getModels() {
+    public List<Model> getModels() {
         return models;
     }
 
