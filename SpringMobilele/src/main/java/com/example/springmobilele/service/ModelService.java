@@ -9,8 +9,4 @@ public interface ModelService {
 
     void initializeModels();
 
-    boolean isEmpty();
-
-    List<Model> setBrandToModel(Brand brand);
-
 }

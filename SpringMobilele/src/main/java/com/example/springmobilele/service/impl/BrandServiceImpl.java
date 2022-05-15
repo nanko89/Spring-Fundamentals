@@ -8,31 +8,31 @@ import com.example.springmobilele.service.ModelService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Service
 public class BrandServiceImpl implements BrandService {
 
     private final BrandRepository brandRepository;
-    private final ModelService modelService;
 
-    public BrandServiceImpl(BrandRepository brandRepository, ModelService modelService) {
+
+    public BrandServiceImpl(BrandRepository brandRepository) {
         this.brandRepository = brandRepository;
-        this.modelService = modelService;
     }
 
 
     @Override
-    public void initializeBrandWithModels() {
+    public void initializeBrand() {
         if (brandRepository.count() == 0) {
             Brand bmw = new Brand();
             bmw.setName("BMW").setCreated(LocalDateTime.now());
-
-            if(modelService.isEmpty()){
-                modelService.initializeModels();
-            }
-            bmw.setModels(modelService.setBrandToModel(bmw));
             brandRepository.save(bmw);
         }
+    }
+
+    @Override
+    public List<Brand> getBrands() {
+        return brandRepository.findAll();
     }
 }

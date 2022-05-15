@@ -8,6 +8,9 @@ import javax.persistence.*;
 @Table(name = "models")
 public class Model extends BaseEntity {
 
+    @Column(nullable = false)
+    private String name;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Category category;
@@ -25,6 +28,15 @@ public class Model extends BaseEntity {
     private Brand brand;
 
     public Model() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Model setName(String name) {
+        this.name = name;
+        return this;
     }
 
     public Category getCategory() {

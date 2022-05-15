@@ -1,8 +1,6 @@
 package com.example.springmobilele.models.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
@@ -12,7 +10,7 @@ public class Brand extends BaseEntity {
 
     private String name;
 
-    @OneToMany(mappedBy = "brand")
+    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Model> models;
 
     public Brand() {
@@ -35,4 +33,6 @@ public class Brand extends BaseEntity {
         this.name = name;
         return this;
     }
+
+
 }
