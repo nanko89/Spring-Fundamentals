@@ -4,6 +4,7 @@ import com.example.springmobilele.models.entity.User;
 import com.example.springmobilele.models.entity.UserRole;
 import com.example.springmobilele.models.entity.enums.Role;
 import com.example.springmobilele.models.service.UserLoginServiceModel;
+import com.example.springmobilele.models.service.UserRegistrationServiceModel;
 import com.example.springmobilele.repository.UserRepository;
 import com.example.springmobilele.repository.UserRoleRepository;
 import com.example.springmobilele.service.UserService;
@@ -97,10 +98,7 @@ public class UserServiceImpl implements UserService {
             if (success) {
                 User loggedUser = userOptional.get();
 
-                currentUser.setLoggedIn(true)
-                        .setUsername(loggedUser.getUsername())
-                        .setFirstName(loggedUser.getFirstName())
-                        .setLastName(loggedUser.getLastName());
+                login(loggedUser);
 
                 loggedUser.getUserRole().forEach(role -> currentUser.addRole(role.getRole()));
             }
@@ -112,5 +110,30 @@ public class UserServiceImpl implements UserService {
     public boolean logout() {
         currentUser.clean();
         return false;
+    }
+
+    @Override
+    public void registerUser(UserRegistrationServiceModel userRegisterService) {
+
+        UserRole role = userRoleRepository.findByRole(Role.USER);
+
+        User user = new User();
+        user.setUsername(userRegisterService.getUsername())
+                .setFirstName(userRegisterService.getFirstName())
+                .setLastName(userRegisterService.getLastName())
+                .setPassword(passwordEncoder.encode(userRegisterService.getPassword()))
+                .setActive(true)
+                .setUserRole(Set.of(role));
+
+        userRepository.save(user);
+
+        login(user);
+    }
+
+    private void login(User user) {
+        currentUser.setLoggedIn(true)
+                .setUsername(user.getUsername())
+                .setFirstName(user.getFirstName())
+                .setLastName(user.getLastName());
     }
 }

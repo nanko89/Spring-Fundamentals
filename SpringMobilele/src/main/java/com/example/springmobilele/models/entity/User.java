@@ -1,6 +1,7 @@
 package com.example.springmobilele.models.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,7 +24,7 @@ public class User extends BaseEntity {
     private boolean isActive;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<UserRole> userRole;
+    private Set<UserRole> userRole = new HashSet<>();
 
     @Column(name = "image_url")
     private String imageUrl;
