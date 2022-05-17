@@ -45,4 +45,9 @@ public class ModelServiceImpl implements ModelService {
             modelRepository.saveAll(Set.of(x5, x6));
         }
     }
+
+    @Override
+    public Model findByName(String modelName) {
+        return modelRepository.findByName(modelName);
+    }
 }

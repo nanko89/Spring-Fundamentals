@@ -130,6 +130,19 @@ public class UserServiceImpl implements UserService {
         login(user);
     }
 
+    @Override
+    public boolean isFreeUsername(String username) {
+        return userRepository
+                .findByUsernameIgnoreCase(username)
+                .isEmpty();
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username).orElse(null);
+    }
+
+
     private void login(User user) {
         currentUser.setLoggedIn(true)
                 .setUsername(user.getUsername())
