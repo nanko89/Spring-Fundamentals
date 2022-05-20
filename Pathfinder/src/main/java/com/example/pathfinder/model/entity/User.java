@@ -10,7 +10,7 @@ import java.util.Set;
 public class User extends BaseEntity {
 
     @Column(name = "age")
-    private int age;
+    private Integer age;
 
     @Column(name = "full_name")
     private String fullName;
@@ -75,6 +75,24 @@ public class User extends BaseEntity {
 
     public User setLevel(Level level) {
         this.level = level;
+        return this;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public User setAge(Integer age) {
+        this.age = age;
+        return this;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public User setFullName(String fullName) {
+        this.fullName = fullName;
         return this;
     }
 }

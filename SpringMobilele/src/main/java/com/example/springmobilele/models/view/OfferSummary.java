@@ -6,6 +6,7 @@ import com.example.springmobilele.models.entity.enums.Transmission;
 import java.math.BigDecimal;
 
 public class OfferSummary {
+    private Long id;
     private String description;
     private Engine engine;
     private String imageUrl;
@@ -85,6 +86,15 @@ public class OfferSummary {
 
     public OfferSummary setModel(String model) {
         this.model = model;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public OfferSummary setId(Long id) {
+        this.id = id;
         return this;
     }
 }
