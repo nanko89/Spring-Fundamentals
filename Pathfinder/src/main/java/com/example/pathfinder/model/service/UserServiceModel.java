@@ -3,7 +3,6 @@ package com.example.pathfinder.model.service;
 import com.example.pathfinder.model.entity.Role;
 import com.example.pathfinder.model.entity.enums.Level;
 
-import javax.persistence.*;
 import java.util.Set;
 
 public class UserServiceModel {
