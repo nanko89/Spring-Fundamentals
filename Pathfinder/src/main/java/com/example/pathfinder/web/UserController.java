@@ -5,7 +5,6 @@ import com.example.pathfinder.model.binding.UserRegisterBindingModel;
 import com.example.pathfinder.model.service.UserServiceModel;
 import com.example.pathfinder.model.view.UserViewModel;
 import com.example.pathfinder.service.UserService;
-import com.example.pathfinder.util.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +28,8 @@ public class UserController {
         this.userService = userService;
         this.modelMapper = modelMapper;
     }
+
+    //Register user
 
     @GetMapping("/register")
     public String register(Model model) {
@@ -66,6 +67,7 @@ public class UserController {
         return "redirect:login";
     }
 
+    // Login user
     @GetMapping("/login")
     public String login(Model model) {
 
@@ -112,12 +114,15 @@ public class UserController {
         return "redirect:/";
     }
 
+    //Logout user
+
     @GetMapping("/logout")
     private String logout(){
         userService.logout();
         return "redirect:/";
     }
 
+    //User profile info
 
     @GetMapping("/profile/{id}")
     public String profile(@PathVariable Long id, Model model){
@@ -125,7 +130,6 @@ public class UserController {
         UserViewModel userViewModel = modelMapper.map(userService.findById(id), UserViewModel.class);
 
         model.addAttribute("user", userViewModel);
-
 
         return "profile";
     }
