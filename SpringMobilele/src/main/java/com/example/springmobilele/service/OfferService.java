@@ -10,4 +10,12 @@ public interface OfferService {
     void initializeOffer();
 
     List<OfferSummary> getAllOffers();
- }
+
+    Offer getById(Long id);
+
+    String findModel(Long id);
+
+    String findBrand(Long id);
+
+    void deleteOffer(Long id);
+}

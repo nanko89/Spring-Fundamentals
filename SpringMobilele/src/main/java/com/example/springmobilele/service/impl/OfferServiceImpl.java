@@ -5,6 +5,7 @@ import com.example.springmobilele.models.entity.enums.Engine;
 import com.example.springmobilele.models.entity.enums.Transmission;
 import com.example.springmobilele.models.view.OfferSummary;
 import com.example.springmobilele.repository.OfferRepository;
+import com.example.springmobilele.service.BrandService;
 import com.example.springmobilele.service.ModelService;
 import com.example.springmobilele.service.OfferService;
 import com.example.springmobilele.service.UserService;
@@ -20,16 +21,17 @@ public class OfferServiceImpl implements OfferService {
 
     private final OfferRepository offerRepository;
     private final ModelService modelService;
+    private final BrandService brandService;
     private final UserService userService;
     private final ModelMapper modelMapper;
 
-    public OfferServiceImpl(OfferRepository offerRepository, ModelService modelService, UserService userService, ModelMapper modelMapper) {
+    public OfferServiceImpl(OfferRepository offerRepository, ModelService modelService, BrandService brandService, UserService userService, ModelMapper modelMapper) {
         this.offerRepository = offerRepository;
         this.modelService = modelService;
+        this.brandService = brandService;
         this.userService = userService;
         this.modelMapper = modelMapper;
     }
-
 
     @Override
     public void initializeOffer() {
@@ -52,7 +54,7 @@ public class OfferServiceImpl implements OfferService {
                     .setModel(modelService.findByName("x6"))
                     .setEngine(Engine.DIESEL)
                     .setTransmission(Transmission.AUTOMATIC)
-                    .setImageUrl("https://img.hey.car/unsafe/1024x/filters:quality(90)/https://cdn.hey.car/images/cas/8a61261b4642d744ae7f17d79ac05ace/original.jpg")
+                    .setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/2009_BMW_X6_xDrive35i.jpg/275px-2009_BMW_X6_xDrive35i.jpg")
                     .setMileage(120000)
                     .setDescription("BMW X6 xDrive30d HeadUp ACC Automatic")
                     .setPrice(BigDecimal.valueOf(49000))
@@ -70,6 +72,26 @@ public class OfferServiceImpl implements OfferService {
                 .stream()
                 .map(this::map)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Offer getById(Long id) {
+        return offerRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public String findModel(Long id) {
+        return offerRepository.findById(id).get().getModel().getName();
+    }
+
+    @Override
+    public String findBrand(Long id) {
+        return offerRepository.findById(id).get().getModel().getBrand().getName();
+    }
+
+    @Override
+    public void deleteOffer(Long id) {
+        offerRepository.deleteById(id);
     }
 
     private OfferSummary map(Offer offer) {

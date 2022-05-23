@@ -1,5 +1,7 @@
 package com.example.springmobilele.models.view;
 
+import com.example.springmobilele.models.entity.Brand;
+import com.example.springmobilele.models.entity.Model;
 import com.example.springmobilele.models.entity.enums.Engine;
 import com.example.springmobilele.models.entity.enums.Transmission;
 
@@ -14,7 +16,7 @@ public class OfferSummary {
     private BigDecimal price;
     private Transmission transmission;
     private Integer year;
-    private String model;
+    private Model model;
 
 
     public String getDescription() {
@@ -80,11 +82,11 @@ public class OfferSummary {
         return this;
     }
 
-    public String getModel() {
+    public Model getModel() {
         return model;
     }
 
-    public OfferSummary setModel(String model) {
+    public OfferSummary setModel(Model model) {
         this.model = model;
         return this;
     }
@@ -97,4 +99,5 @@ public class OfferSummary {
         this.id = id;
         return this;
     }
+
 }

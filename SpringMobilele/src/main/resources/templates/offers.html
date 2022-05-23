@@ -26,15 +26,16 @@
                 <img class="card-img-top" th:src="*{getImageUrl()}" alt="Car image">
             </div>
             <div class="card-body pb-1">
-                <h5 class="card-title">
+                <h5 class="card-title"
+                    th:text="${o.year} + ' ' + ${o.model.brand.name} + ' ' + ${o.model.name}">
                     Offer year Brand name Model name</h5>
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-                    <div class="card-text"><span th:text="*{mileage}">Mileage</span></div>
-                    <div class="card-text"><span th:text="*{price}">Price</span></div>
-                    <div class="card-text"><span th:text="*{engine}">Engine type</span></div>
-                    <div class="card-text"><span th:text="*{transmission}">Transmission type</span></div>
+                    <div class="card-text"><span th:text="'Mileage: ' + ${o.mileage} + 'km'"></span></div>
+                    <div class="card-text"><span th:text="'Price: ' + ${o.price} +'$'"></span></div>
+                    <div class="card-text"><span th:text="'Engine: ' + ${o.engine}">Engine type</span></div>
+                    <div class="card-text"><span th:text="'Transmission: ' + ${o.transmission}"></span></div>
                 </li>
             </ul>
             <div class="card-body">
