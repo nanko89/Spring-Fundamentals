@@ -53,11 +53,8 @@ public class UserRegistrationController {
         UserRegistrationServiceModel user = modelMapper
                 .map(userModel, UserRegistrationServiceModel.class);
 
-        if (!userService.isFreeUsername(user.getUsername())){
-            return "redirect:/users/register";
-        }else {
             userService.registerUser(user);
-        }
+
 
         return "redirect:/";
     }

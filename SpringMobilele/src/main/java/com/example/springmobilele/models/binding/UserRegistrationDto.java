@@ -1,5 +1,7 @@
 package com.example.springmobilele.models.binding;
 
+import com.example.springmobilele.models.validator.UniqueUsername;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -14,6 +16,7 @@ public class UserRegistrationDto {
     private String lastName;
     @NotNull
     @Size(min = 6, max = 20)
+    @UniqueUsername
     private String username;
     @NotNull
     @Size(min = 8, max = 30)
