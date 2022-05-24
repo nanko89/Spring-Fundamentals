@@ -10,10 +10,11 @@ import com.example.springmobilele.service.OfferService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 public class OffersController {
@@ -57,7 +58,18 @@ public class OffersController {
         OfferUpdateBidingModel offerModel = modelMapper
                 .map(offerDetailsView, OfferUpdateBidingModel.class);
 
-        model.addAttribute("offerModel", offerModel)
+        model
+                .addAttribute("engines", Engine.values())
+                .addAttribute("transmissions", Transmission.values())
+                .addAttribute("offerModel", offerModel);
+
+        return "update";
+    }
+
+
+    @GetMapping("/offers/{id}/update/error")
+    public String updateOfferErrors(@PathVariable Long id, Model model) {
+        model
                 .addAttribute("engines", Engine.values())
                 .addAttribute("transmissions", Transmission.values());
 
@@ -65,10 +77,21 @@ public class OffersController {
     }
 
     @PatchMapping("/offers/{id}/update")
-    public String updateOffer(@PathVariable Long id, OfferUpdateBidingModel offerUpdateBidingModel) {
+    public String updateOffer(@PathVariable Long id,
+                              @Valid @ModelAttribute("offerModel") OfferUpdateBidingModel offerModel,
+                              BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes
+                    .addFlashAttribute("offerModel", offerModel)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.offerModel",
+                            bindingResult);
+            return "redirect:/offers/" + id + "/update/error";
+        }
 
         OfferUpdateServiceModel serviceModel = modelMapper
-                .map(offerUpdateBidingModel, OfferUpdateServiceModel.class);
+                .map(offerModel, OfferUpdateServiceModel.class);
 
         serviceModel.setId(id);
 
@@ -76,4 +99,6 @@ public class OffersController {
 
         return "redirect:/offers/" + id + "/details";
     }
+
+
 }

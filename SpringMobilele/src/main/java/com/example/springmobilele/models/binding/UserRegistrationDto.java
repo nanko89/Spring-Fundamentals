@@ -12,9 +12,11 @@ public class UserRegistrationDto {
     @NotNull
     @Size(min = 4, max = 20)
     private String lastName;
-//    @Size(min = 6, max = 20)
+    @NotNull
+    @Size(min = 6, max = 20)
     private String username;
-//    @Size(min = 8, max = 30)
+    @NotNull
+    @Size(min = 8, max = 30)
     private String password;
 
     public String getFirstName() {

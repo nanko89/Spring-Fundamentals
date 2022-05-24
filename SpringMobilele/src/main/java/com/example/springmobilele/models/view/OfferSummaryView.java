@@ -1,6 +1,5 @@
 package com.example.springmobilele.models.view;
 
-import com.example.springmobilele.models.entity.User;
 import com.example.springmobilele.models.entity.enums.Engine;
 import com.example.springmobilele.models.entity.enums.Transmission;
 

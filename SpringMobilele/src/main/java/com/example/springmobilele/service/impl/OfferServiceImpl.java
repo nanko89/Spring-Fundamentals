@@ -109,7 +109,6 @@ public class OfferServiceImpl implements OfferService {
         return detailsView;
     }
 
-
     private OfferSummaryView map(Offer offer) {
         OfferSummaryView offerSummaryView = this.modelMapper.map(offer, OfferSummaryView.class);
         offerSummaryView.setBrand(offer.getModel().getBrand().getName());

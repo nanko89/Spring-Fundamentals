@@ -3,18 +3,31 @@ package com.example.springmobilele.models.binding;
 import com.example.springmobilele.models.entity.enums.Engine;
 import com.example.springmobilele.models.entity.enums.Transmission;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 public class OfferUpdateBidingModel {
 
     private Long id;
+    @NotBlank
     private String description;
+    @NotNull
     private Engine engine;
+    @NotBlank
     private String imageUrl;
+    @NotNull
+    @Positive
     private Integer mileage;
+    @NotNull
+    @Min(100)
     private BigDecimal price;
+    @NotNull
     private Transmission transmission;
+    @NotNull
+    @Min(1950)
     private Integer year;
 
     public OfferUpdateBidingModel() {
