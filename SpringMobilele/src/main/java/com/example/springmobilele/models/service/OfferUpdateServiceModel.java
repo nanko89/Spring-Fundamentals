@@ -1,13 +1,13 @@
-package com.example.springmobilele.models.view;
+package com.example.springmobilele.models.service;
 
-import com.example.springmobilele.models.entity.Brand;
 import com.example.springmobilele.models.entity.Model;
 import com.example.springmobilele.models.entity.enums.Engine;
 import com.example.springmobilele.models.entity.enums.Transmission;
 
 import java.math.BigDecimal;
 
-public class OfferSummary {
+public class OfferUpdateServiceModel {
+
     private Long id;
     private String description;
     private Engine engine;
@@ -18,12 +18,23 @@ public class OfferSummary {
     private Integer year;
     private Model model;
 
+    public OfferUpdateServiceModel() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public OfferUpdateServiceModel setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public String getDescription() {
         return description;
     }
 
-    public OfferSummary setDescription(String description) {
+    public OfferUpdateServiceModel setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -32,7 +43,7 @@ public class OfferSummary {
         return engine;
     }
 
-    public OfferSummary setEngine(Engine engine) {
+    public OfferUpdateServiceModel setEngine(Engine engine) {
         this.engine = engine;
         return this;
     }
@@ -41,7 +52,7 @@ public class OfferSummary {
         return imageUrl;
     }
 
-    public OfferSummary setImageUrl(String imageUrl) {
+    public OfferUpdateServiceModel setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
         return this;
     }
@@ -50,7 +61,7 @@ public class OfferSummary {
         return mileage;
     }
 
-    public OfferSummary setMileage(Integer mileage) {
+    public OfferUpdateServiceModel setMileage(Integer mileage) {
         this.mileage = mileage;
         return this;
     }
@@ -59,7 +70,7 @@ public class OfferSummary {
         return price;
     }
 
-    public OfferSummary setPrice(BigDecimal price) {
+    public OfferUpdateServiceModel setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }
@@ -68,7 +79,7 @@ public class OfferSummary {
         return transmission;
     }
 
-    public OfferSummary setTransmission(Transmission transmission) {
+    public OfferUpdateServiceModel setTransmission(Transmission transmission) {
         this.transmission = transmission;
         return this;
     }
@@ -77,7 +88,7 @@ public class OfferSummary {
         return year;
     }
 
-    public OfferSummary setYear(Integer year) {
+    public OfferUpdateServiceModel setYear(Integer year) {
         this.year = year;
         return this;
     }
@@ -86,18 +97,8 @@ public class OfferSummary {
         return model;
     }
 
-    public OfferSummary setModel(Model model) {
+    public OfferUpdateServiceModel setModel(Model model) {
         this.model = model;
         return this;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public OfferSummary setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
 }

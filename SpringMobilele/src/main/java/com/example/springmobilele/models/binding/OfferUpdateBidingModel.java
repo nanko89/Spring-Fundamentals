@@ -1,49 +1,39 @@
-package com.example.springmobilele.models.entity;
+package com.example.springmobilele.models.binding;
 
 import com.example.springmobilele.models.entity.enums.Engine;
 import com.example.springmobilele.models.entity.enums.Transmission;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "offers")
-public class Offer extends BaseEntity {
+public class OfferUpdateBidingModel {
 
-    @Column(columnDefinition = "TEXT")
+    private Long id;
     private String description;
-
-    @Enumerated(EnumType.STRING)
     private Engine engine;
-
-    @Column(name = "image_url", nullable = false)
     private String imageUrl;
-
-    @Column(nullable = false)
     private Integer mileage;
-
-    @Column(nullable = false)
     private BigDecimal price;
-
-    @Enumerated(EnumType.STRING)
     private Transmission transmission;
-
     private Integer year;
 
-    @ManyToOne
-    private Model model;
+    public OfferUpdateBidingModel() {
+    }
 
-    @ManyToOne
-    private User seller;
+    public Long getId() {
+        return id;
+    }
 
-    public Offer() {
+    public OfferUpdateBidingModel setId(Long id) {
+        this.id = id;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public Offer setDescription(String description) {
+    public OfferUpdateBidingModel setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -52,7 +42,7 @@ public class Offer extends BaseEntity {
         return engine;
     }
 
-    public Offer setEngine(Engine engine) {
+    public OfferUpdateBidingModel setEngine(Engine engine) {
         this.engine = engine;
         return this;
     }
@@ -61,7 +51,7 @@ public class Offer extends BaseEntity {
         return imageUrl;
     }
 
-    public Offer setImageUrl(String imageUrl) {
+    public OfferUpdateBidingModel setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
         return this;
     }
@@ -70,7 +60,7 @@ public class Offer extends BaseEntity {
         return mileage;
     }
 
-    public Offer setMileage(Integer mileage) {
+    public OfferUpdateBidingModel setMileage(Integer mileage) {
         this.mileage = mileage;
         return this;
     }
@@ -79,7 +69,7 @@ public class Offer extends BaseEntity {
         return price;
     }
 
-    public Offer setPrice(BigDecimal price) {
+    public OfferUpdateBidingModel setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }
@@ -88,7 +78,7 @@ public class Offer extends BaseEntity {
         return transmission;
     }
 
-    public Offer setTransmission(Transmission transmission) {
+    public OfferUpdateBidingModel setTransmission(Transmission transmission) {
         this.transmission = transmission;
         return this;
     }
@@ -97,28 +87,8 @@ public class Offer extends BaseEntity {
         return year;
     }
 
-    public Offer setYear(Integer year) {
+    public OfferUpdateBidingModel setYear(Integer year) {
         this.year = year;
         return this;
     }
-
-    public Model getModel() {
-        return model;
-    }
-
-    public Offer setModel(Model model) {
-        this.model = model;
-        return this;
-    }
-
-    public User getSeller() {
-        return seller;
-    }
-
-    public Offer setSeller(User seller) {
-        this.seller = seller;
-        return this;
-    }
-
-
 }

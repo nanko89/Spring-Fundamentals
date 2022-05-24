@@ -1,7 +1,8 @@
 package com.example.springmobilele.service;
 
-import com.example.springmobilele.models.entity.Offer;
-import com.example.springmobilele.models.view.OfferSummary;
+import com.example.springmobilele.models.service.OfferUpdateServiceModel;
+import com.example.springmobilele.models.view.OfferDetailsView;
+import com.example.springmobilele.models.view.OfferSummaryView;
 
 import java.util.List;
 
@@ -9,13 +10,12 @@ public interface OfferService {
 
     void initializeOffer();
 
-    List<OfferSummary> getAllOffers();
-
-    Offer getById(Long id);
-
-    String findModel(Long id);
-
-    String findBrand(Long id);
+    List<OfferSummaryView> getAllOffers();
 
     void deleteOffer(Long id);
+
+    void updateOffer(OfferUpdateServiceModel offerUpdateServiceModel);
+
+    OfferDetailsView findById(Long id);
+
 }

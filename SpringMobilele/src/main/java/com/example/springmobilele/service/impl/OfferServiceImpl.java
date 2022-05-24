@@ -3,12 +3,14 @@ package com.example.springmobilele.service.impl;
 import com.example.springmobilele.models.entity.Offer;
 import com.example.springmobilele.models.entity.enums.Engine;
 import com.example.springmobilele.models.entity.enums.Transmission;
-import com.example.springmobilele.models.view.OfferSummary;
+import com.example.springmobilele.models.service.OfferUpdateServiceModel;
+import com.example.springmobilele.models.view.OfferDetailsView;
+import com.example.springmobilele.models.view.OfferSummaryView;
 import com.example.springmobilele.repository.OfferRepository;
-import com.example.springmobilele.service.BrandService;
 import com.example.springmobilele.service.ModelService;
 import com.example.springmobilele.service.OfferService;
 import com.example.springmobilele.service.UserService;
+import com.example.springmobilele.web.exeption.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +23,12 @@ public class OfferServiceImpl implements OfferService {
 
     private final OfferRepository offerRepository;
     private final ModelService modelService;
-    private final BrandService brandService;
     private final UserService userService;
     private final ModelMapper modelMapper;
 
-    public OfferServiceImpl(OfferRepository offerRepository, ModelService modelService, BrandService brandService, UserService userService, ModelMapper modelMapper) {
+    public OfferServiceImpl(OfferRepository offerRepository, ModelService modelService, UserService userService, ModelMapper modelMapper) {
         this.offerRepository = offerRepository;
         this.modelService = modelService;
-        this.brandService = brandService;
         this.userService = userService;
         this.modelMapper = modelMapper;
     }
@@ -66,7 +66,7 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public List<OfferSummary> getAllOffers() {
+    public List<OfferSummaryView> getAllOffers() {
         return offerRepository
                 .findAll()
                 .stream()
@@ -75,26 +75,47 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public Offer getById(Long id) {
-        return offerRepository.findById(id).orElse(null);
-    }
-
-    @Override
-    public String findModel(Long id) {
-        return offerRepository.findById(id).get().getModel().getName();
-    }
-
-    @Override
-    public String findBrand(Long id) {
-        return offerRepository.findById(id).get().getModel().getBrand().getName();
-    }
-
-    @Override
     public void deleteOffer(Long id) {
         offerRepository.deleteById(id);
     }
 
-    private OfferSummary map(Offer offer) {
-        return this.modelMapper.map(offer, OfferSummary.class);
+    @Override
+    public void updateOffer(OfferUpdateServiceModel offerModel) {
+        Offer offer = offerRepository
+                .findById(offerModel.getId())
+                .orElseThrow(() -> new ObjectNotFoundException("Not found offer with id " + offerModel.getId()));
+
+        offer.setPrice(offerModel.getPrice())
+                .setMileage(offerModel.getMileage())
+                .setYear(offerModel.getYear())
+                .setTransmission(offerModel.getTransmission())
+                .setEngine(offerModel.getEngine())
+                .setDescription(offerModel.getDescription())
+                .setImageUrl(offerModel.getImageUrl());
+
+        offerRepository.save(offer);
+    }
+
+    @Override
+    public OfferDetailsView findById(Long id) {
+        return this.offerRepository.findById(id).map(this::mapDetailsView).get();
+    }
+
+    private OfferDetailsView mapDetailsView(Offer offer) {
+        OfferDetailsView detailsView = this.modelMapper.map(offer, OfferDetailsView.class);
+        detailsView.setModel(offer.getModel().getName());
+        detailsView.setBrand(offer.getModel().getBrand().getName());
+        detailsView.setFullName(offer.getSeller().getFirstName() + " " + offer.getSeller().getLastName());
+        return detailsView;
+    }
+
+
+    private OfferSummaryView map(Offer offer) {
+        OfferSummaryView offerSummaryView = this.modelMapper.map(offer, OfferSummaryView.class);
+        offerSummaryView.setBrand(offer.getModel().getBrand().getName());
+        offerSummaryView.setModel(offer.getModel().getName());
+        offerSummaryView.setFullName(offer.getSeller().getFirstName() + " " + offer.getSeller().getLastName());
+
+        return offerSummaryView;
     }
 }

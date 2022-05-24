@@ -20,31 +20,32 @@
 <div class="container-fluid" >
     <h2 class="text-center text-white mt-5">Details</h2>
     <div class="offers row mx-auto d-flex flex-row justify-content-center">
-        <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
+        <div th:object="${offer}"
+             class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
             <div class="card-body pb-1">
                 <h5 class="card-title"
-                    th:text="${offer.year} + ' ' + ${brand} + ' ' + ${model}">
+                    th:text="|*{year} *{brand} *{model}|">
                     Offer year Brand name Model name</h5>
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-                    <div class="card-text"><span th:text="'• Mileage: ' + ${offer.mileage} + 'km'"></span></div>
-                    <div class="card-text"><span th:text="'• Price: ' +${offer.price} + '$'"></span></div>
-                    <div class="card-text"><span th:text="'• Engine type: ' + ${offer.engine.name()}"></span></div>
+                    <div class="card-text"><span th:text="|Mileage: *{mileage} km|"></span></div>
+                    <div class="card-text"><span th:text="|Price: *{price} '$'|"></span></div>
+                    <div class="card-text"><span th:text="|Engine type: *{engine}|"></span></div>
                     <div class="card-text"><span
-                            th:text="'• Transmission type: ' + ${offer.transmission.name()}"></span>
+                            th:text="|Transmission type: *{transmission}|"></span>
                     </div>
-                    <div class="card-text"><span th:text="'• Offer created:  ' + ${offer.created}"></span></div>
-                    <div class="card-text"><span th:text="'• Offer modified: ' + ${offer.modified}"></span></div>
+                    <div class="card-text"><span th:text="|Offer created: *{created}|"></span></div>
+                    <div class="card-text"><span th:text="|Offer modified: *{modified}|"></span></div>
                     <div class="card-text"><span
-                            th:text="'• Seller: ' + ${offer.seller.firstName + ' ' + offer.seller.lastName}"> - First and Last name</span>
+                            th:text="| Seller: *{fullName}|"> - First and Last name</span>
                     </div>
                 </li>
             </ul>
             <div class="card-body">
                 <div class="row">
-                    <a class="btn btn-link" href="/">Update</a>
-                    <form th:action="@{/offers/{id}(id=${offer.id})}" th:method="delete">
+                    <a class="btn btn-link" th:href="@{/offers/{id}/update(id=*{id})}">Update</a>
+                    <form th:action="@{/offers/{id}(id=*{id})}" th:method="delete">
                         <input type="submit" class="btn btn-link" value="Delete"></input>
                     </form>
                 </div>
