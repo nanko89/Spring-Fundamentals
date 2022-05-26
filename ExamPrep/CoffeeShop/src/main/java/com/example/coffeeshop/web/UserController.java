@@ -1,10 +1,12 @@
 package com.example.coffeeshop.web;
 
+import com.example.coffeeshop.model.biding.UserLoginBidingModel;
 import com.example.coffeeshop.model.biding.UserRegisterBidingModel;
 import com.example.coffeeshop.model.service.UserServiceModel;
 import com.example.coffeeshop.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -52,12 +54,45 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(){
+    public String login(Model model){
+        if (!model.containsAttribute("isFound")){
+            model.addAttribute("isFound", true);
+        }
         return "login";
+    }
+
+    @PostMapping("/login")
+    public String loggedIn(@Valid UserLoginBidingModel userLoginBidingModel, BindingResult bindingResult,
+                           RedirectAttributes redirectAttributes){
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("userLoginBidingModel", userLoginBidingModel)
+                    .addFlashAttribute("org.springframework.validation.BidingResult.userLoginBidingModel",
+                            bindingResult);
+            return "redirect:login";
+        }
+        UserServiceModel serviceModel = userService.findByUsernameAndPassword
+                (userLoginBidingModel.getUsername(), userLoginBidingModel.getPassword());
+
+        if (serviceModel == null){
+            redirectAttributes.addFlashAttribute("userLoginBidingModel",userLoginBidingModel)
+                    .addFlashAttribute("isFound", false);
+            return "redirect:login";
+
+        }
+
+        userService.loggedIn(serviceModel.getId(), serviceModel.getUsername());
+
+        return "redirect:/";
     }
 
     @ModelAttribute("userRegisterBidingModel")
     public UserRegisterBidingModel userRegisterBidingModel(){
         return new UserRegisterBidingModel();
+    }
+
+    @ModelAttribute("userLoginBidingModel")
+    public UserLoginBidingModel userLoginBidingModel(){
+        return new UserLoginBidingModel();
     }
 }

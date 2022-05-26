@@ -1,7 +1,6 @@
 package com.example.coffeeshop.model.biding;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 public class UserRegisterBidingModel {
