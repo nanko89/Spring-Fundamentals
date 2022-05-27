@@ -33,4 +33,10 @@ public class CategoryServiceImpl implements CategoryService {
             });
         }
     }
+
+    @Override
+    public Category findByName(CategoryEnum category) {
+        return categoryRepository.findByName(category)
+                .orElse(null);
+    }
 }
