@@ -1,14 +1,13 @@
 package com.example.coffeeshop.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
-    @Column(nullable = false , unique = true)
+    @Column(nullable = false, unique = true)
     private String username;
     @Column(nullable = true)
     private String firstName;
@@ -18,6 +17,8 @@ public class User extends BaseEntity{
     private String email;
     @Column(nullable = false)
     private String password;
+    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
+    private List<Order> orders;
 
     public User() {
     }
@@ -64,6 +65,15 @@ public class User extends BaseEntity{
 
     public User setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public User setOrders(List<Order> orders) {
+        this.orders = orders;
         return this;
     }
 }
