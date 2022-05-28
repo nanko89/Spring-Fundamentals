@@ -1,5 +1,6 @@
 package com.example.springmobilele.web;
 
+import com.example.springmobilele.models.binding.OfferAddBidingModel;
 import com.example.springmobilele.models.binding.OfferUpdateBidingModel;
 import com.example.springmobilele.models.entity.enums.Engine;
 import com.example.springmobilele.models.entity.enums.Transmission;
@@ -98,6 +99,33 @@ public class OffersController {
         offerService.updateOffer(serviceModel);
 
         return "redirect:/offers/" + id + "/details";
+    }
+
+
+    @GetMapping("/offers/add")
+    public String addOffer(Model model){
+        model
+                .addAttribute("engines", Engine.values())
+                .addAttribute("transmissions", Transmission.values())
+                .addAttribute("addOffer", new OfferAddBidingModel());
+        return "offer-add";
+    }
+
+    @PostMapping("/offers/add")
+    public String saveOffer(@Valid OfferAddBidingModel offerAddBidingModel,
+                            BindingResult bindingResult,
+                            RedirectAttributes redirectAttributes){
+
+        if (bindingResult.hasErrors()){
+            redirectAttributes
+                    .addFlashAttribute("offerAddBidingModel", offerAddBidingModel)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.offerAddBidingModel",
+                            bindingResult);
+
+            return "redirect:/offers/add";
+        }
+
+       return "redirect:/offers" + offerAddBidingModel.getId() + "/details";
     }
 
 

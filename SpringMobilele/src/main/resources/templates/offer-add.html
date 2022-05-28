@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>MobiLeLeLe</title>
@@ -19,13 +19,18 @@
 
 <div class="container">
     <h2 class="text-center text-white">Upload Offer</h2>
-    <form method="POST"
+    <form
+            th:object="${addOffer}"
+            th:action="@{/offers/all}"
+            th:method="post"
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="row">
 
             <div class="form-group col-md-6 mb-3">
                 <label class="text-center text-white font-weight-bold" for="model">Model</label>
-                <select id="model" class="form-control">
+                <select id="model"
+                        th:field=""
+                        class="form-control">
                     <option value="">- Select a model -</option>
                     <optgroup label="Brand name">
                         <option>Model</option>

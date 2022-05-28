@@ -1,7 +1,6 @@
 package com.example.springmobilele.web;
 
 import com.example.springmobilele.models.binding.UserRegistrationDto;
-import com.example.springmobilele.models.entity.User;
 import com.example.springmobilele.models.service.UserRegistrationServiceModel;
 import com.example.springmobilele.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -54,7 +53,6 @@ public class UserRegistrationController {
                 .map(userModel, UserRegistrationServiceModel.class);
 
             userService.registerUser(user);
-
 
         return "redirect:/";
     }

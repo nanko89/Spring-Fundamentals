@@ -15,11 +15,11 @@ public class UserRegistrationDto {
     @Size(min = 4, max = 20)
     private String lastName;
     @NotNull
-    @Size(min = 6, max = 20)
+    @Size(min = 4, max = 20)
     @UniqueUsername
     private String username;
     @NotNull
-    @Size(min = 8, max = 30)
+    @Size(min = 4, max = 30)
     private String password;
 
     public String getFirstName() {
