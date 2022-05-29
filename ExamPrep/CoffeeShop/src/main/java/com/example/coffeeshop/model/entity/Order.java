@@ -17,7 +17,7 @@ public class Order extends BaseEntity{
     private String name;
     @Column(nullable = false, name = "order_time")
     private LocalDateTime orderTime;
-    @Column(nullable = false)
+    @Column(nullable = false, scale = 2)
     private BigDecimal price;
     @ManyToOne
     private Category category;
