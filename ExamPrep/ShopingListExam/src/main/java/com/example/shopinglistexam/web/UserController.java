@@ -63,7 +63,7 @@ public class UserController {
         }
 
         httpSession.setAttribute("user", serviceModel);
-        return "redirect:/home";
+        return "redirect:/";
     }
 
 
