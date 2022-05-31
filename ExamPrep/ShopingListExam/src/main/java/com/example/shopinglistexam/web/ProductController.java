@@ -1,7 +1,10 @@
 package com.example.shopinglistexam.web;
 
 import com.example.shopinglistexam.model.binding.ProductAddBindingModel;
+import com.example.shopinglistexam.model.entity.enums.CategoryName;
+import com.example.shopinglistexam.model.service.ProductServiceModel;
 import com.example.shopinglistexam.service.ProductService;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,15 +20,19 @@ import javax.validation.Valid;
 public class ProductController {
 
     private final ProductService productService;
+    private final ModelMapper modelMapper;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, ModelMapper modelMapper) {
         this.productService = productService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/add")
     public String addProduct(Model model){
         if (!model.containsAttribute("productAddBindingModel")){
-            model.addAttribute("productAddBindingModel", new ProductAddBindingModel());
+            model.addAttribute("productAddBindingModel", new ProductAddBindingModel())
+                    .addAttribute("categories", CategoryName.values())
+                    .addAttribute("existProductName", false);
         }
         return "product-add";
     }
@@ -35,7 +42,23 @@ public class ProductController {
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes){
 
-        if (bindingResult.hasErrors()){}
+        if (bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("productAddBindingModel", productAddBindingModel)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.productAddBindingModel", bindingResult);
+
+        return "redirect:add";
+        }
+
+        ProductServiceModel serviceByName = productService.findByName(productAddBindingModel.getName());
+
+        if (serviceByName != null){
+            redirectAttributes.addFlashAttribute("productAddBindingModel", productAddBindingModel)
+                    .addFlashAttribute("existProductName", true);
+            return "redirect:add";
+        }
+
+        productService
+                .addProduct(modelMapper.map(productAddBindingModel, ProductServiceModel.class));
         return "redirect:/";
     }
 }
