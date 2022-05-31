@@ -8,6 +8,7 @@
     <hr class="hr-3 w-25 bg-white"/>
     <form class="mx-auto w-25 bg-blur rounded" method="post" action="/users/register" th:object="${userRegisterBindingModel}" >
         <div class="form-group" >
+            <h5 th:if="${isExist}" class="bg-danger rounded">User already exist </h5>
             <div  class="label-holder textCol d-flex justify-content-center">
                 <label for="username" class="h4 mb-2 text-white">Username</label>
             </div>

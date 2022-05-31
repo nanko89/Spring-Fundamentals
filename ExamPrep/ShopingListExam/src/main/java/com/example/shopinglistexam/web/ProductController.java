@@ -9,10 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -28,7 +30,12 @@ public class ProductController {
     }
 
     @GetMapping("/add")
-    public String addProduct(Model model){
+    public String addProduct(Model model, HttpSession httpSession){
+        
+        if(httpSession.getAttribute("user") == null){
+            return "redirect:/login";
+        }
+
         if (!model.containsAttribute("productAddBindingModel")){
             model.addAttribute("productAddBindingModel", new ProductAddBindingModel())
                     .addAttribute("categories", CategoryName.values())
@@ -59,6 +66,18 @@ public class ProductController {
 
         productService
                 .addProduct(modelMapper.map(productAddBindingModel, ProductServiceModel.class));
+        return "redirect:/";
+    }
+
+    @GetMapping("/buy/{id}")
+    public String buyProducts(@PathVariable String id){
+        productService.buyProduct(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("buy/all")
+    public String buyAll(){
+        productService.buyAllProduct();
         return "redirect:/";
     }
 }
