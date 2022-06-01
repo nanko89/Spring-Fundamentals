@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::navigation"></header>
+<main>
+    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Item</span></h1>
+    <hr class="hr-3"/>
+    <form class="mx-auto w-25 bg-dark p-3 rounded text-center" action="/item/add" method="post" >
+        <div class="form-group">
+            <div class="text-white label-holder d-flex justify-content-center">
+                <label for="name" class="h4 mb-2">Name</label>
+            </div>
+            <input type="text" class="form-control" id="name" name="name" />
+            <small class="text-danger">Incorrect name!</small>
+        </div>
+        <div class="form-group">
+            <div class="text-white label-holder d-flex justify-content-center">
+                <label for="description" class="h4 mb-2">Description</label>
+            </div>
+            <input type="text" class="form-control" id="description" name="description"/>
+            <small class="text-danger">Incorrect description</small>
+        </div>
+        <div class="form-group">
+            <div class="text-white label-holder d-flex justify-content-center">
+                <label for="category" class="h4 mb-2">Category</label>
+            </div>
+            <select class="browser-default custom-select" id="category" name="category">
+                <option value="">Select category</option>
+                <option value="SHIRT">Shirt</option>
+                <option value="DENIM">Denim</option>
+                <option value="SHORTS">Shorts</option>
+                <option value="JACKET">Jacket</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <div class="text-white label-holder d-flex justify-content-center">
+                <label for="gender" class="h4 mb-2">Gender</label>
+            </div>
+            <select class="browser-default custom-select" id="gender" name="gender" >
+                <option value="">Select gender</option>
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <div class="text-white label-holder d-flex justify-content-center">
+                <label for="price" class="h4 mb-2">Price</label>
+            </div>
+            <input type="number" class="form-control" id="price" name="price"/>
+            <small class="text-danger">Incorrect price!</small>
+        </div>
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn btn-secondary text-white mb-3">Add Item</button>
+        </div>
+    </form>
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>
