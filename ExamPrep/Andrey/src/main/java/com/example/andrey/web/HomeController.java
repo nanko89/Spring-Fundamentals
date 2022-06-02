@@ -1,23 +1,28 @@
 package com.example.andrey.web;
 
-import com.example.andrey.model.binding.UserLoginBindingModel;
+import com.example.andrey.service.ItemService;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 @Controller
 public class HomeController {
+    private final ItemService itemService;
+
+    public HomeController(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     @GetMapping("/")
-    public String index(HttpSession httpSession){
+    public String index(HttpSession httpSession, Model model){
 
         if(httpSession.getAttribute("user") == null){
             return "index";
         }
+
+        model.addAttribute("items", itemService.findAllItems());
         return "home";
     }
 }

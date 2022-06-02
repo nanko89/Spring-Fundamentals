@@ -9,13 +9,13 @@
     <hr class="my-3"/>
     <div class="container-fluid bg-dark w-25 m-auto ">
         <div class="row justify-content-center ">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="/img/MALE-SHORTS.jpg" alt="Card image cap">
+            <div th:object="${item}" class="card" style="width: 18rem;">
+                <img class="card-img-top" th:src="*{imgUrl}" alt="Card image cap">
                 <div class="card-body bg-gray align-content-center text-center">
-                    <h6>Item name</h6>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi enim, excepturi ha </p>
-                    <h6>Price</h6>
-                    <a class="btn btn-danger" >Delete</a>
+                    <h6 th:text="*{name}"></h6>
+                    <p class="card-text" th:text="*{description}"></p>
+                    <h6 th:text="*{price}"></h6>
+                    <a th:href="@{/item/delete/{id}(id=*{id})}" class="btn btn-danger" >Delete</a>
                 </div>
             </div>
         </div>
