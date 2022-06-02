@@ -30,8 +30,11 @@ public class ItemController {
 
     @GetMapping("/add")
     public String add(Model model) {
+        if (!model.containsAttribute("existItem")) {
+            model.addAttribute("existItem", false);
+        }
 
-        model.addAttribute("existItem", false)
+        model
                 .addAttribute("gender", Gender.values())
                 .addAttribute("categories", CategoryName.values());
 

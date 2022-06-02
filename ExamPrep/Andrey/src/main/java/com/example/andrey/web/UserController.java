@@ -31,7 +31,10 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(Model model) {
-        model.addAttribute("isNotExist", false);
+        if (!model.containsAttribute("isNotExist")) {
+            model.addAttribute("isNotExist", false);
+        }
+
         return "login";
     }
 
@@ -59,23 +62,27 @@ public class UserController {
         }
 
         httpSession.setAttribute("user", userLoginBindingModel);
+
         return "redirect:/";
     }
 
 
     @GetMapping("/register")
-    public String register(Model model){
-        model.addAttribute("isExistUser", false);
+    public String register(Model model) {
+        if (!model.containsAttribute("isExistUser")) {
+            model.addAttribute("isExistUser", false);
+        }
+
         return "register";
     }
 
     @PostMapping("/register")
     public String confirmRegister(@Valid UserRegisterBindingModel userRegisterBindingModel,
                                   BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes){
+                                  RedirectAttributes redirectAttributes) {
 
-        if(bindingResult.hasErrors() ||
-                !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())){
+        if (bindingResult.hasErrors() ||
+                !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
             redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel",
                             bindingResult);
@@ -86,7 +93,7 @@ public class UserController {
         boolean isExistUsername = userService
                 .existByUsername(userRegisterBindingModel.getUsername());
 
-        if(isExistUsername){
+        if (isExistUsername) {
             redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel)
                     .addFlashAttribute("isExistUser", true);
 
@@ -99,19 +106,20 @@ public class UserController {
         return "redirect:login";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession httpSession) {
+        httpSession.invalidate();
+        return "redirect:/";
+    }
+
     @ModelAttribute()
     public UserLoginBindingModel userLoginBindingModel() {
         return new UserLoginBindingModel();
     }
 
     @ModelAttribute()
-    public UserRegisterBindingModel userRegisterBindingModel(){
+    public UserRegisterBindingModel userRegisterBindingModel() {
         return new UserRegisterBindingModel();
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession httpSession){
-        httpSession.invalidate();
-        return "redirect:/";
-    }
 }

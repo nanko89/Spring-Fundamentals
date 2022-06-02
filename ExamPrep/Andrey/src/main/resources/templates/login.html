@@ -7,7 +7,7 @@
         <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark" >Login</span></h1>
         <hr class="hr-3"/>
         <form class="mx-auto w-25 bg-dark bg-gray p-3 rounded" action="/user/login" method="post" th:object="${userLoginBindingModel}">
-            <h4 th:if="${isNotExist}" class="text-center bg-dark text-danger">Wrong username or password</h4>
+            <h4 th:if="${isNotExist == false}" class="text-center bg-dark text-danger">Wrong username or password</h4>
             <br/>
             <th:block th:each="e : ${#fields.errors()}" th:object="${e}">
                 <small th:text="${e}"
