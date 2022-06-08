@@ -8,6 +8,7 @@ import com.example.springmobilele.service.BrandService;
 import com.example.springmobilele.service.ModelService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -49,5 +50,10 @@ public class ModelServiceImpl implements ModelService {
     @Override
     public Model findByName(String modelName) {
         return modelRepository.findByName(modelName);
+    }
+
+    @Override
+    public List<Model> getModels() {
+        return modelRepository.findAll();
     }
 }

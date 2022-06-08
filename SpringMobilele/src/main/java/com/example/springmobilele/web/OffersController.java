@@ -6,7 +6,8 @@ import com.example.springmobilele.models.entity.enums.Engine;
 import com.example.springmobilele.models.entity.enums.Transmission;
 import com.example.springmobilele.models.service.OfferUpdateServiceModel;
 import com.example.springmobilele.models.view.OfferDetailsView;
-import com.example.springmobilele.models.view.OfferSummaryView;
+import com.example.springmobilele.service.BrandService;
+import com.example.springmobilele.service.ModelService;
 import com.example.springmobilele.service.OfferService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -18,23 +19,28 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 
 @Controller
+@RequestMapping("/offers")
 public class OffersController {
 
     private final OfferService offerService;
     private final ModelMapper modelMapper;
+    private final BrandService brandService;
+    private final ModelService modelService;
 
-    public OffersController(OfferService offerService, ModelMapper modelMapper) {
+    public OffersController(OfferService offerService, ModelMapper modelMapper, BrandService brandService, ModelService modelService) {
         this.offerService = offerService;
         this.modelMapper = modelMapper;
+        this.brandService = brandService;
+        this.modelService = modelService;
     }
 
-    @GetMapping("/offers/all")
+    @GetMapping("/all")
     public String allOffers(Model model) {
         model.addAttribute("offers", offerService.getAllOffers());
         return "offers";
     }
 
-    @GetMapping("/offers/{id}/details")
+    @GetMapping("/{id}/details")
     public String showOfferDetails(@PathVariable Long id, Model model) {
 
         OfferDetailsView view = offerService.findById(id);
@@ -45,13 +51,13 @@ public class OffersController {
         return "details";
     }
 
-    @DeleteMapping("/offers/{id}")
+    @DeleteMapping("/{id}")
     public String deleteOffer(@PathVariable Long id) {
         offerService.deleteOffer(id);
         return "redirect:/offers/all";
     }
 
-    @GetMapping("/offers/{id}/update")
+    @GetMapping("/{id}/update")
     public String updateOffer(@PathVariable Long id, Model model) {
 
         OfferDetailsView offerDetailsView = offerService.findById(id);
@@ -68,7 +74,7 @@ public class OffersController {
     }
 
 
-    @GetMapping("/offers/{id}/update/error")
+    @GetMapping("/{id}/update/error")
     public String updateOfferErrors(@PathVariable Long id, Model model) {
         model
                 .addAttribute("engines", Engine.values())
@@ -77,7 +83,7 @@ public class OffersController {
         return "update";
     }
 
-    @PatchMapping("/offers/{id}/update")
+    @PatchMapping("/{id}/update")
     public String updateOffer(@PathVariable Long id,
                               @Valid @ModelAttribute("offerModel") OfferUpdateBidingModel offerModel,
                               BindingResult bindingResult,
@@ -102,16 +108,18 @@ public class OffersController {
     }
 
 
-    @GetMapping("/offers/add")
+    @GetMapping("/add")
     public String addOffer(Model model){
         model
                 .addAttribute("engines", Engine.values())
+                .addAttribute("brands", brandService.getBrands())
+//                .addAttribute("models", modelService.getModelsByBrand(brand))
                 .addAttribute("transmissions", Transmission.values())
                 .addAttribute("addOffer", new OfferAddBidingModel());
         return "offer-add";
     }
 
-    @PostMapping("/offers/add")
+    @PostMapping("/add")
     public String saveOffer(@Valid OfferAddBidingModel offerAddBidingModel,
                             BindingResult bindingResult,
                             RedirectAttributes redirectAttributes){
@@ -122,10 +130,10 @@ public class OffersController {
                     .addFlashAttribute("org.springframework.validation.BindingResult.offerAddBidingModel",
                             bindingResult);
 
-            return "redirect:/offers/add";
+            return "redirect:/add";
         }
 
-       return "redirect:/offers" + offerAddBidingModel.getId() + "/details";
+       return "redirect:/" + offerAddBidingModel.getId() + "/details";
     }
 
 

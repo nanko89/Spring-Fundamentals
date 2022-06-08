@@ -19,6 +19,9 @@ public class OfferAddBidingModel {
     private String brand;
     private User seller;
 
+    public OfferAddBidingModel() {
+    }
+
     public Long getId() {
         return id;
     }
