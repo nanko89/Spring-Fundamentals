@@ -14,4 +14,5 @@ public interface UserService {
 
     boolean isFreeEmail(String email);
 
+    User findById();
 }

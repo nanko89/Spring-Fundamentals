@@ -1,5 +1,7 @@
 package com.example.battleships.model.service;
 
+import com.example.battleships.service.UserService;
+
 import javax.persistence.Column;
 
 public class UserServiceModel {
@@ -8,6 +10,7 @@ public class UserServiceModel {
     private String fullName;
     private String password;
     private String email;
+
 
     public UserServiceModel() {
     }

@@ -27,3 +27,5 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+    format:
+      date: dd/MM/yyyy

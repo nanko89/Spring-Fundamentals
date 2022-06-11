@@ -25,9 +25,13 @@ public class CategoryServiceImpl implements CategoryService {
                         Category category = new Category();
                         category.setName(categoryEnum);
                         category.setDescription("Description for " + categoryEnum.name().toLowerCase(Locale.ROOT));
-
                         categoryRepository.save(category);
                     });
         }
+    }
+
+    @Override
+    public Category findByCategoryEnumName(String category) {
+        return categoryRepository.findByName(CategoryEnum.valueOf(category)).orElse(null);
     }
 }

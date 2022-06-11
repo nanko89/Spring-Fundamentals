@@ -1,17 +1,17 @@
 package com.example.battleships.service.impl;
 
-import com.example.battleships.model.binding.UserLoginBindingModel;
+
 import com.example.battleships.model.entity.User;
 import com.example.battleships.model.service.UserServiceModel;
 import com.example.battleships.repository.UserRepository;
 import com.example.battleships.service.UserService;
-import com.example.battleships.user.CurrentUser;
+
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Service
@@ -21,13 +21,16 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
-    private final CurrentUser currentUser;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, CurrentUser currentUser) {
+    private final HttpSession httpSession;
+
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper,
+                           PasswordEncoder passwordEncoder, HttpSession httpSession) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
-        this.currentUser = currentUser;
+        this.httpSession = httpSession;
+
     }
 
     @Override
@@ -40,7 +43,6 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user);
 
-        login(user);
     }
 
     @Override
@@ -60,7 +62,6 @@ public class UserServiceImpl implements UserService {
         if (success) {
             User userLogged = optionalUser.get();
 
-            login(userLogged);
         }
 
         return success;
@@ -68,13 +69,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void logout() {
-        currentUser.clean();
-    }
-
-    private void login(User user) {
-        currentUser.setLoggedIn(true);
-        currentUser.setFullName(user.getFullName());
-        currentUser.setUsername(user.getUsername());
+        httpSession.invalidate();
     }
 
     @Override
@@ -90,4 +85,10 @@ public class UserServiceImpl implements UserService {
                 .findByEmailIgnoreCase(email)
                 .isEmpty();
     }
+
+    @Override
+    public User findById() {
+        return null;
+    }
+
 }
