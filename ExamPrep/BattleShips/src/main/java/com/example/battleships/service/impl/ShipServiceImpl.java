@@ -8,6 +8,7 @@ import com.example.battleships.model.service.UserServiceModel;
 import com.example.battleships.model.view.ShipViewModel;
 import com.example.battleships.repository.ShipRepository;
 import com.example.battleships.service.ShipService;
+import com.example.battleships.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +22,11 @@ public class ShipServiceImpl implements ShipService {
     private final ShipRepository shipRepository;
     private final ModelMapper modelMapper;
 
+
     public ShipServiceImpl(ShipRepository shipRepository, ModelMapper modelMapper) {
         this.shipRepository = shipRepository;
         this.modelMapper = modelMapper;
+
     }
 
     @Override
@@ -64,6 +67,7 @@ public class ShipServiceImpl implements ShipService {
 
     @Override
     public void fight(HomeBindingModel homeBindingModel) {
+
         Optional<Ship> attacker = shipRepository
                 .findById(homeBindingModel.getAttackerShip());
 
@@ -76,7 +80,6 @@ public class ShipServiceImpl implements ShipService {
 
         Ship shipDef = defender.get();
         Ship shipAttack = attacker.get();
-
 
         int dHealth = shipDef.getHealth() - shipAttack.getPower();
 

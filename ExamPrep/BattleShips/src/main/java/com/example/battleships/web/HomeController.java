@@ -4,6 +4,7 @@ import com.example.battleships.model.binding.HomeBindingModel;
 import com.example.battleships.model.service.UserServiceModel;
 import com.example.battleships.model.view.ShipViewModel;
 import com.example.battleships.service.ShipService;
+import com.example.battleships.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 
@@ -23,21 +24,29 @@ import java.util.stream.Collectors;
 @Controller
 public class HomeController {
     private final ShipService shipService;
+    private final UserService userService;
     private final ModelMapper modelMapper;
 
-    public HomeController(ShipService shipService, ModelMapper modelMapper) {
+    private final HttpSession httpSession;
+
+    public HomeController(ShipService shipService, UserService userService, ModelMapper modelMapper, HttpSession httpSession) {
         this.shipService = shipService;
+        this.userService = userService;
         this.modelMapper = modelMapper;
+        this.httpSession = httpSession;
     }
 
     @GetMapping("/")
-    public String index(Model model, HttpSession httpSession) {
+    public String index(Model model) {
 
         if (httpSession.getAttribute("user") == null) {
             return "index";
         }
 
-        UserServiceModel currentUser = modelMapper.map(httpSession.getAttribute("user"), UserServiceModel.class);
+        UserServiceModel user =
+                modelMapper.map(httpSession.getAttribute("user"), UserServiceModel.class);
+
+        UserServiceModel currentUser = userService.findByUsername(user.getUsername());
         List<ShipViewModel> ships = shipService.findAll();
         model.addAttribute("currentUser", currentUser);
 
@@ -51,21 +60,25 @@ public class HomeController {
         return "home";
     }
 
-    @PostMapping("/fire")
+    @PostMapping("/home")
     public String fight(@Valid HomeBindingModel homeBindingModel,
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes){
+
+        if (httpSession.getAttribute("user") == null) {
+            return "redirect:/";
+        }
 
         if (bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("homeBindingModel", homeBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.homeBindingModel", bindingResult);
 
-            return "redirect:/home";
+            return "redirect:/";
         }
 
         shipService.fight(homeBindingModel);
 
-        return "redirect:/home";
+        return "redirect:/";
     }
 
 

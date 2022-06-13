@@ -1,5 +1,6 @@
 package com.example.battleships.service;
 
+import com.example.battleships.model.binding.UserLoginBindingModel;
 import com.example.battleships.model.entity.User;
 import com.example.battleships.model.service.UserServiceModel;
 
@@ -15,4 +16,6 @@ public interface UserService {
     boolean isFreeEmail(String email);
 
     User findById();
+
+    UserServiceModel findByUsername(String username);
 }

@@ -51,7 +51,7 @@ public class ShipController {
             redirectAttributes.addFlashAttribute("shipAddBindingModel", shipAddBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.shipAddBindingModel",
                             bindingResult);
-            return "redirect:/add";
+            return "redirect:add";
         }
 
         ShipServiceModel serviceModel = modelMapper
@@ -61,11 +61,13 @@ public class ShipController {
                 .findByCategoryEnumName(shipAddBindingModel.getCategory());
 
         UserServiceModel currentUser = modelMapper
-                .map(httpSession.getAttribute("user"), UserServiceModel.class);
+                .map(httpSession
+                        .getAttribute("user"), UserServiceModel.class);
 
         serviceModel.setCategory(category);
 
-        shipService.addShips(serviceModel, currentUser);
+        shipService.addShips(serviceModel, userService
+                        .findByUsername(currentUser.getUsername()));
         return "redirect:/";
     }
 
