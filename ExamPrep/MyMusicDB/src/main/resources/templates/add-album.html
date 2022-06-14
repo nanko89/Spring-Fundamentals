@@ -1,102 +1,97 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>My Music DB Application</title>
-    <link rel="stylesheet" href="/css/reset-css.css"/>
-    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/css/style.css"/>
-</head>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-lg bg-nav rounded">
-        <a class="nav-link" href="/">
-            <img src="/img/headphones.png" width="40px" alt="HeadPhones picture">
-        </a>
-        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-            <ul class="navbar-nav row">
-                <li class="nav-item col-md-4">
-                    <a class="nav-link text-white active h5" href="/">Login</a>
-                </li>
-                <li class="nav-item col-md-4">
-                    <a class="nav-link text-white active h5" href="/">Register</a>
-                </li>
-                <li class="nav-item col-md-4">
-                    <a class="nav-link text-white active h5" href="/">Add Album</a>
-                </li>
-                <li class="nav-item col-md-4">
-                    <a class="nav-link text-white active h5" href="/">Logout</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+<header th:replace="fragments/commons::navigation"></header>
+
 <main class="p-5 bg-blur text-center my-main">
     <h1 class="text-light border-bottom">Add Album</h1>
     <div class="d-flex justify-content-center">
-        <form action="/" method="POST"
+        <form action="/albums/add" method="POST" th:object="${albumAddBindingModel}"
               class="text-light">
             <div class="form-row m-5">
                 <div class="col">
                     <label for="name">Album name</label>
-                    <input name="name" id="name" type="text" class="form-control" placeholder="Album name">
-                    <small id="nameError" class="form-text bg-danger rounded">Name must be between 3 and 20
+                    <input th:field="*{name}"
+                           th:errorclass="'is-invalid bg-danger'"
+                            id="name" type="text" class="form-control" placeholder="Album name">
+                    <small id="nameError" class="invalid-feedback form-text bg-danger rounded">Name must be between 3 and 20
                         characters</small>
                 </div>
                 <div class="col">
                     <label for="imgUrl">Image Url</label>
-                    <input name="imgUrl" id="imgUrl" type="text" class="form-control" placeholder="Image Url">
-                    <small id="imageUrlError" class="form-text bg-danger rounded">Image url must be more than 5
+                    <input th:field="*{imageUrl}"
+                           th:errorclass="'is-invalid bg-danger'"
+                           id="imgUrl" type="text" class="form-control" placeholder="Image Url">
+                    <small id="imageUrlError" class="invalid-feedback form-text bg-danger rounded">Image url must be more than 5
                         characters</small>
                 </div>
             </div>
             <div class="form-row m-5">
                 <div class="col">
                     <label for="price">Price</label>
-                    <input name="price" id="price" type="number" class="form-control" placeholder="Price">
-                    <small id="priceError" class="form-text bg-danger rounded">Price must be positive</small>
+                    <input th:field="*{price}"
+                           th:errorclass="'is-invalid bg-danger'"
+                           id="price" type="number" class="form-control" placeholder="Price">
+                    <small id="priceError" class="invalid-feedback form-text bg-danger rounded">Price must be positive</small>
                 </div>
                 <div class="col">
                     <label for="copies">Copies</label>
-                    <input name="copies" id="copies" type="number" class="form-control" placeholder="Copies">
-                    <small id="copiesError" class="form-text bg-danger rounded">Copies must be positive</small>
+                    <input th:field="*{copies}"
+                           th:errorclass="'is-invalid bg-danger'"
+                           id="copies" type="number" class="form-control" placeholder="Copies">
+                    <small id="copiesError" class="invalid-feedback form-text bg-danger rounded">Copies must be positive</small>
                 </div>
             </div>
             <div class="form-row m-5">
                 <div class="col">
                     <label for="releaseDate">Release date</label>
-                    <input name="releaseDate" id="releaseDate" type="date" class="form-control" placeholder="Release date">
-                    <small id="releaseDateError" class="form-text bg-danger rounded">Release date cannot be in the
+                    <input th:field="*{releasedDate}"
+                           th:errorclass="'is-invalid bg-danger'"
+                           id="releaseDate" type="date" class="form-control" placeholder="Release date">
+                    <small id="releaseDateError" class="invalid-feedback form-text bg-danger rounded">Release date cannot be in the
                         future</small>
                 </div>
                 <div class="col">
                     <label for="producer">Producer</label>
-                    <input name="producer" id="producer" type="text" class="form-control" placeholder="Producer">
+                    <input th:field="*{producer}"
+                           th:errorclass="'is-invalid bg-danger'"
+                           id="producer" type="text" class="form-control" placeholder="Producer">
                 </div>
             </div>
             <div class="form-row m-5">
                 <div class="col">
                     <label for="artist">Artist</label>
-                    <select name="artist" id="artist" class="custom-select">
+                    <select th:field="*{artist}"
+                            th:errorclass="'is-invalid bg-danger'"
+                            id="artist" class="custom-select">
                         <option value="" selected>Select Artist</option>
+                        <option th:each="a : ${T(com.example.mymusicdb.model.entity.enums.ArtistName).values()}"
+                                th:value="${a}" th:text="${a}" selected>Select Artist</option>
                     </select>
-                    <small id="artistError" class="form-text bg-danger rounded">You must select artist</small>
+                    <small id="artistError" class="invalid-feedback form-text bg-danger rounded">You must select artist</small>
                 </div>
                 <div class="col">
                     <label for="genre">Genre</label>
-                    <select name="genre" id="genre" class="custom-select">
+                    <select th:field="*{genre}"
+                            th:errorclass="'is-invalid bg-danger'"
+                            id="genre" class="custom-select">
                         <option value="" selected>Select genre</option>
+                        <option th:each="g : ${T(com.example.mymusicdb.model.entity.enums.Genre).values()}"
+                        th:value="${g}" th:text="${g}"></option>
                     </select>
-                    <small id="genreError" class="form-text bg-danger rounded">You must select genre</small>
+                    <small id="genreError" class="invalid-feedback form-text bg-danger rounded">You must select genre</small>
                 </div>
             </div>
 
             <div class="form-row m-5">
                 <div class="col">
                     <label for="description">Description</label>
-                    <textarea name="description" id="description" type="text" class="form-control" placeholder="Description"></textarea>
-                    <small id="descriptionError" class="form-text bg-danger rounded">Description length must be more than 5 characters</small>
+                    <textarea th:field="*{description}"
+                              th:errorclass="'is-invalid bg-danger'"
+                              id="description" type="text" class="form-control" placeholder="Description"></textarea>
+                    <small id="descriptionError" class="invalid-feedback form-text bg-danger rounded">Description length must be more than 5 characters</small>
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-4">
@@ -105,12 +100,6 @@
         </form>
     </div>
 </main>
-<footer class="footer bg-blur">
-    <div class="container-fluid text-center">
-        <div class="h5 text-white">
-            &copy;SoftUni Spring Team 2021. All rights reserved.
-        </div>
-    </div>
-</footer>
+<footer th:replace="fragments/commons::footer"></footer>
 </body>
 </html>

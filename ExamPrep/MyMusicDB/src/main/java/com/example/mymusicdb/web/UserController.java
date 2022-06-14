@@ -1,9 +1,9 @@
-package com.example.battleships.web;
+package com.example.mymusicdb.web;
 
-import com.example.battleships.model.binding.UserLoginBindingModel;
-import com.example.battleships.model.binding.UserRegisterBindingModel;
-import com.example.battleships.model.service.UserServiceModel;
-import com.example.battleships.service.UserService;
+import com.example.mymusicdb.model.binding.UserLoginBindingModel;
+import com.example.mymusicdb.model.binding.UserRegisterBindingModel;
+import com.example.mymusicdb.model.service.UserServiceModel;
+import com.example.mymusicdb.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,20 +25,18 @@ public class UserController {
     private final ModelMapper modelMapper;
     private final HttpSession httpSession;
 
+
     public UserController(UserService userService, ModelMapper modelMapper, HttpSession httpSession) {
         this.userService = userService;
         this.modelMapper = modelMapper;
         this.httpSession = httpSession;
+
     }
 
     @GetMapping("/login")
     public String login(Model model) {
-
-        if (httpSession.getAttribute("user") != null){
-            return "redirect:/home";
-        }
-        if (!model.containsAttribute("isInvalid")){
-            model.addAttribute("isInvalid", false);
+        if (!model.containsAttribute("isValid")) {
+            model.addAttribute("isValid", true);
         }
         return "login";
     }
@@ -49,26 +47,27 @@ public class UserController {
                                RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel)
+            redirectAttributes
+                    .addFlashAttribute("userLoginBindingModel",userLoginBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel",
                             bindingResult);
-
             return "redirect:login";
+
         }
 
         UserServiceModel userServiceModel = modelMapper
                 .map(userLoginBindingModel, UserServiceModel.class);
 
-        boolean loginUser = userService.loginUser(userServiceModel);
+        UserServiceModel currentUser = userService.login(userServiceModel);
 
-        if (!loginUser){
-            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel)
-                    .addFlashAttribute("isInvalid", true);
-
+        if (currentUser == null) {
+            redirectAttributes
+                    .addFlashAttribute("userLoginBindingModel", userLoginBindingModel)
+                    .addFlashAttribute("isValid", false);
             return "redirect:login";
         }
 
-        httpSession.setAttribute("user", userLoginBindingModel);
+        httpSession.setAttribute("user", currentUser);
 
         return "redirect:/";
     }
@@ -85,10 +84,10 @@ public class UserController {
 
         if (bindingResult.hasErrors() ||
                 !userRegisterBindingModel.getConfirmPassword().equals(userRegisterBindingModel.getPassword())) {
-            redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel)
+            redirectAttributes
+                    .addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel",
                             bindingResult);
-
             return "redirect:register";
         }
 
@@ -97,24 +96,23 @@ public class UserController {
 
         userService.registerUser(userServiceModel);
 
-        userService.loginUser(userServiceModel);
 
         return "redirect:login";
     }
 
-    @GetMapping("logout")
-    public String logout(HttpSession httpSession) {
+    @GetMapping("/logout")
+    public String logout() {
         httpSession.invalidate();
         return "redirect:/";
     }
 
     @ModelAttribute
-    public UserRegisterBindingModel userRegisterBindingModel() {
-        return new UserRegisterBindingModel();
+    public UserLoginBindingModel userLoginBindingModel() {
+        return new UserLoginBindingModel();
     }
 
     @ModelAttribute
-    public UserLoginBindingModel userLoginBindingModel(){
-        return new UserLoginBindingModel();
+    public UserRegisterBindingModel userRegisterBindingModel() {
+        return new UserRegisterBindingModel();
     }
 }

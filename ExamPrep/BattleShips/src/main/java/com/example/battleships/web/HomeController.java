@@ -26,7 +26,6 @@ public class HomeController {
     private final ShipService shipService;
     private final UserService userService;
     private final ModelMapper modelMapper;
-
     private final HttpSession httpSession;
 
     public HomeController(ShipService shipService, UserService userService, ModelMapper modelMapper, HttpSession httpSession) {
