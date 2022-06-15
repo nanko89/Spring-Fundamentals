@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<div class="page-container">
+    <header th:replace="fragments/commons::navigation"></header>
+
+    <main class="content-wrap">
+        <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Task</span></h1>
+        <hr class="hr-3 w-25 bg-white"/>
+        <form class="mx-auto w-25 bg-blur"  method="" action="/">
+            <div class="form-group">
+                <div class="label-holder textCol d-flex justify-content-center">
+                    <label for="name" class="h4 mb-2">Name</label>
+                </div>
+                <input type="text"  class="form-control" id="name" name="name"/>
+                <small class="text-danger">Name error message</small>
+            </div>
+            <div class="form-group">
+                <div class="label-holder textCol d-flex justify-content-center">
+                    <label for="description" class="h4 mb-2">Description</label>
+                </div>
+                <input type="text" class="form-control" id="description" name="description"/>
+
+                <small class="text-danger">Description error message</small>
+            </div>
+            <div class="form-group">
+                <div class="label-holder  textCol d-flex justify-content-center">
+                    <label for="dueDate" class="h4 mb-2">Due Date</label>
+                </div>
+                <input type="date" class="form-control" id="dueDate" name="dueDate"/>
+                <small class="text-danger">Date error message</small>
+            </div>
+            <div class="form-group">
+                <div class="label-holder  textCol d-flex justify-content-center">
+                    <label for="classification" class="h4 mb-2">Classification</label>
+                </div>
+                <select type="text" class="form-control" id="classification" name="classification">
+                    <option value="">Select Classification</option>
+                    <option value="">FEATURE</option>
+                    <option value="">BUG</option>
+                    <option value="">SUPPORT</option>
+                    <option value="">OTHER</option>
+
+
+                </select>
+                <small class="text-danger">Classification error message</small>
+            </div>
+
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="button btn-warning  mb-3" value="Register">Add Task</button>
+            </div>
+        </form>
+    </main>
+    <footer th:replace="fragments/commons::footer"></footer>
+</div>
+</body>
+</html>
