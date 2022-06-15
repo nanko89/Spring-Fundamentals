@@ -7,14 +7,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class UserRegistrationDto {
-
-    @NotNull
+    @NotBlank
     @Size(min = 4, max = 20)
     private String firstName;
-    @NotNull
+    @NotBlank
     @Size(min = 4, max = 20)
     private String lastName;
-    @NotNull
+    @NotBlank
     @Size(min = 4, max = 20)
     @UniqueUsername
     private String username;

@@ -14,14 +14,13 @@ public class DataInitializer implements CommandLineRunner {
     private final ModelService modelService;
     private final UserService userService;
     private final OfferService offerService;
-    private final PasswordEncoder passwordEncoder;
 
-    public DataInitializer(BrandService brandService, ModelService modelService, UserService userService, OfferService offerService, PasswordEncoder passwordEncoder) {
+    public DataInitializer(BrandService brandService, ModelService modelService, UserService userService,
+                           OfferService offerService) {
         this.brandService = brandService;
         this.modelService = modelService;
         this.userService = userService;
         this.offerService = offerService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override

@@ -113,7 +113,6 @@ public class OffersController {
         model
                 .addAttribute("engines", Engine.values())
                 .addAttribute("brands", brandService.getBrands())
-//                .addAttribute("models", modelService.getModelsByBrand(brand))
                 .addAttribute("transmissions", Transmission.values())
                 .addAttribute("addOffer", new OfferAddBidingModel());
         return "offer-add";

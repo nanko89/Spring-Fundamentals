@@ -10,7 +10,7 @@ public interface UserService {
 
     boolean login(UserLoginServiceModel userLoginServiceModel);
 
-    boolean logout();
+    void logout();
 
     void registerUser(UserRegistrationServiceModel userRegister);
 

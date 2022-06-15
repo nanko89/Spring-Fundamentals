@@ -2,6 +2,7 @@ package com.example.springmobilele.service.impl;
 
 import com.example.springmobilele.models.entity.Brand;
 ;
+import com.example.springmobilele.models.entity.Model;
 import com.example.springmobilele.repository.BrandRepository;
 import com.example.springmobilele.service.BrandService;
 import com.example.springmobilele.service.ModelService;
@@ -34,5 +35,10 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public List<Brand> getBrands() {
         return brandRepository.findAll();
+    }
+
+    @Override
+    public List<Model> getAllModels(Long id) {
+        return null;
     }
 }

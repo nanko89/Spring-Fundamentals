@@ -107,9 +107,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean logout() {
+    public void logout() {
         currentUser.clean();
-        return false;
     }
 
     @Override

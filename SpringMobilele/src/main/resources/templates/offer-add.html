@@ -20,13 +20,17 @@
 
             <div class="form-group col-md-6 mb-3">
                 <label class="text-center text-white font-weight-bold" for="model">Model</label>
-                <select id="model" class="form-control">
+                <select id="model"
+                        name="model" th:errorclass="is-invalid" class="form-control">
                     <option value="">- Select a model -</option>
-                    <optgroup label="Brand name">
-                        <option>Model</option>
+                    <optgroup th:each="b : ${brands}" th:label="${b.name}">
+                        <option th:each="m : ${b.models}"
+                                th:text="${m.name}"
+                                th:value="${m.id}"
+                        >Model</option>
                     </optgroup>
                 </select>
-                <p class="errors alert alert-danger">
+                <p class="invalid-feedback errors alert alert-danger">
                     Vechicle model is required.
                 </p>
             </div>
