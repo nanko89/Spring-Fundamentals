@@ -22,8 +22,6 @@ public class TaskAddBindingModel {
     @NotNull
     private ClassificationName classification;
 
-    @NotNull
-    private String email;
 
     public TaskAddBindingModel() {
     }
@@ -61,15 +59,6 @@ public class TaskAddBindingModel {
 
     public TaskAddBindingModel setClassification(ClassificationName classification) {
         this.classification = classification;
-        return this;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public TaskAddBindingModel setEmail(String email) {
-        this.email = email;
         return this;
     }
 }

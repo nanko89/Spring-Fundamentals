@@ -57,7 +57,8 @@ public class UserController {
         UserServiceModel loginUser = modelMapper
                 .map(userLoginBindingModel, UserServiceModel.class);
 
-        UserServiceModel userServiceModel = userService.login(loginUser);
+        UserServiceModel userServiceModel = userService
+                .login(loginUser);
 
         if (userServiceModel == null) {
             redirectAttributes

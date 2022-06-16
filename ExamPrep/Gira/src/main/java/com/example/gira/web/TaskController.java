@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -53,11 +54,9 @@ public class TaskController {
         TaskServiceModel taskServiceModel = modelMapper
                 .map(taskAddBindingModel, TaskServiceModel.class);
 
-        UserServiceModel user = modelMapper
+        UserServiceModel currentUser = modelMapper
                 .map(httpSession.getAttribute("user"), UserServiceModel.class);
 
-        UserServiceModel currentUser = userService
-                .findByEmail(user.getEmail());
 
         taskServiceModel
                 .setProgress(Progress.OPEN);
@@ -66,5 +65,10 @@ public class TaskController {
                 .addTask(taskServiceModel, currentUser);
 
         return "redirect:/";
+    }
+
+    @ModelAttribute
+    public TaskAddBindingModel taskAddBindingModel(){
+        return new TaskAddBindingModel();
     }
 }
