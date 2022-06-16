@@ -7,12 +7,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class UserLoginBindingModel {
-    @NotBlank
-    @Email
-    @UniqueEmail
+    @NotBlank(message = "Email not be blank")
+    @Email(message = "Must be a well-formed email address" )
     private String email;
-    @NotBlank
-    @Size(min = 3, max = 20)
+    @NotBlank(message = "Password not be blank")
+    @Size(min = 3, max = 20, message = "Password length must be between 3 and 20 characters")
     private String password;
 
     public UserLoginBindingModel() {

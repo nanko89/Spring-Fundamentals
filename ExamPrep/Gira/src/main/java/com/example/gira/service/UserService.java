@@ -7,7 +7,9 @@ public interface UserService {
 
     boolean isFreeEmail(String email);
 
-    boolean existByEmailAndPassword(String email, String password);
-
     UserServiceModel findByEmail(String email);
+
+    void registerUser(UserServiceModel serviceModel);
+
+    UserServiceModel login(UserServiceModel loginUser);
 }
