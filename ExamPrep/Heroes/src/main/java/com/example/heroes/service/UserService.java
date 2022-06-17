@@ -8,4 +8,6 @@ public interface UserService {
     boolean isFreeEmail(String email);
 
     UserServiceModel login(UserServiceModel userServiceModel);
+
+    void registerUser(UserServiceModel userServiceModel);
 }

@@ -55,4 +55,14 @@ public class UserServiceImpl implements UserService {
 
         return modelMapper.map(user, UserServiceModel.class);
     }
+
+    @Override
+    public void registerUser(UserServiceModel userServiceModel) {
+        User user = modelMapper
+                .map(userServiceModel, User.class);
+
+        user.setPassword(passwordEncoder.encode(userServiceModel.getPassword()));
+
+        userRepository.save(user);
+    }
 }

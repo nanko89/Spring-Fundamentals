@@ -3,8 +3,9 @@ package com.example.heroes.model.binding;
 import javax.validation.constraints.NotNull;
 
 public class UserLoginBindingModel {
-    @NotNull
+    @NotNull(message = "Username not be empty")
     private String username;
+    @NotNull(message = "Password not be empty")
     private String password;
 
     public UserLoginBindingModel() {

@@ -1,6 +1,7 @@
 package com.example.heroes.web;
 
 import com.example.heroes.model.binding.UserLoginBindingModel;
+import com.example.heroes.model.binding.UserRegisterBindingModel;
 import com.example.heroes.model.service.UserServiceModel;
 import com.example.heroes.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -74,8 +76,41 @@ public class UserController {
         return "register";
     }
 
+    @PostMapping("/register")
+    public String confirmRegister(@Valid UserRegisterBindingModel userRegisterBindingModel,
+                                  BindingResult bindingResult,
+                                  RedirectAttributes redirectAttributes){
+
+        if (bindingResult.hasErrors() ||
+                !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())){
+            redirectAttributes
+                    .addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel"
+                            , bindingResult);
+            return "redirect:register";
+        }
+
+        UserServiceModel userServiceModel = modelMapper
+                .map(userRegisterBindingModel, UserServiceModel.class);
+
+        userService.registerUser(userServiceModel);
+
+        return "redirect:login";
+    }
+
     @GetMapping("/logout")
     public String logout() {
+        httpSession.invalidate();
         return "redirect:/";
+    }
+
+    @ModelAttribute
+    public UserLoginBindingModel userLoginBindingModel(){
+        return new UserLoginBindingModel();
+    }
+
+    @ModelAttribute
+    public UserRegisterBindingModel userRegisterBindingModel(){
+        return new UserRegisterBindingModel();
     }
 }

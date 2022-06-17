@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::navigation"></header>
+<main>
+    <h1 class="text-center mt-2">Delete Hero</h1>
+    <hr class="hr-3"/>
+    <form class="mx-auto w-15" th:object="${hero}">
+        <div class="form-group">
+            <div class="label-holder d-flex justify-content-center text-white">
+                <label for="name" class="h3 mb-2">Name</label>
+            </div>
+            <input th:field="*{name}"
+                   type="text" class="form-control" id="name" >
+        </div>
+        <div class="form-group">
+            <div class="label-holder d-flex justify-content-center text-white">
+                <label for="heroClass" class="h3 mb-2">Hero class</label>
+            </div>
+            <input th:field="*{heroClass}"
+                   type="text" class="form-control" id="heroClass"/>
+        </div>
+        <div class="form-group">
+            <div class="label-holder d-flex justify-content-center text-white">
+                <label for="level" class="h3 mb-2">Level</label>
+            </div>
+            <input th:field="*{level}"
+                   type="number" class="form-control" id="level"  />
+        </div>
+        <div class="button-holder d-flex justify-content-center">
+            <a th:href="@{/heroes/deleted/{id}(id=*{id})}" class="btn btn-danger text-white mb-3" type="submit" >Delete Hero</a>
+        </div>
+    </form>
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>
