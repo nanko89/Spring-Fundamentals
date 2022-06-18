@@ -22,6 +22,7 @@ public class ProductAddBindingModel {
     @Size(min = 5, message = "Description must be more that 5 characters!")
     private String description;
     @Positive(message = "Price must be positive number")
+    @NotNull(message = "Price must not be empty")
     private BigDecimal price;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @FutureOrPresent(message = "Date can not be in the past")
