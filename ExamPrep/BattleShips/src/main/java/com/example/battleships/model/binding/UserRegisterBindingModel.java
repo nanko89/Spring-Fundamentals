@@ -8,22 +8,22 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class UserRegisterBindingModel {
-    @NotBlank
-    @Size(min = 3, max = 10)
+    @NotBlank(message = "Username must not be empty!")
+    @Size(min = 3, max = 10, message = "Username length must be between 5 and 20 characters.")
     @UniqueUsername(message = "Username already exist")
     private String username;
-    @NotBlank
-    @Size(min = 5, max = 20)
+    @NotBlank(message = "Full name must not be empty!")
+    @Size(min = 5, max = 20, message = "Full name length must be between 5 and 20 characters.")
     private String fullName;
-    @NotBlank
-    @Email
+    @NotBlank(message = "Email must not be empty!")
+    @Email(message = "Invalid email")
     @UniqueEmail(message = "Email already exist")
     private String email;
-    @NotBlank
-    @Size(min = 3)
+    @NotBlank(message = "Password must not be empty!")
+    @Size(min = 3, message = "Password length must be more than 3 characters long.")
     private String password;
-    @NotBlank
-    @Size(min = 3)
+    @NotBlank(message = "Confirm password must not be empty!")
+    @Size(min = 3, message = "Confirm password length must be more than 3 characters long.")
     private String confirmPassword;
 
     public UserRegisterBindingModel() {
