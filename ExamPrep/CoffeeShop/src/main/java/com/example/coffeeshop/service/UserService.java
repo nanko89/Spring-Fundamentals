@@ -2,6 +2,7 @@ package com.example.coffeeshop.service;
 
 import com.example.coffeeshop.model.entity.User;
 import com.example.coffeeshop.model.service.UserServiceModel;
+import com.example.coffeeshop.model.view.UserViewModel;
 
 import java.util.List;
 
@@ -16,5 +17,5 @@ public interface UserService {
 
     User findByUsername(String username);
 
-    List<User> getAllEmployees();
+    List<UserViewModel> getAllEmployees();
 }

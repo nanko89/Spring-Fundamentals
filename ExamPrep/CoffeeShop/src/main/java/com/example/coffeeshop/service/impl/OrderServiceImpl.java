@@ -3,6 +3,7 @@ package com.example.coffeeshop.service.impl;
 import com.example.coffeeshop.model.entity.Order;
 import com.example.coffeeshop.model.service.OrderServiceModel;
 import com.example.coffeeshop.model.service.UserServiceModel;
+import com.example.coffeeshop.model.view.OrderViewModel;
 import com.example.coffeeshop.repository.OrderRepository;
 import com.example.coffeeshop.service.CategoryService;
 import com.example.coffeeshop.service.OrderService;
@@ -53,10 +54,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getAllOrders() {
+    public List<OrderViewModel> getAllOrders() {
         return this.orderRepository
                 .findAll()
                 .stream().sorted(Comparator.comparing(Order::getPrice))
+                .map(order -> modelMapper.map(order, OrderViewModel.class))
                 .collect(Collectors.toList());
     }
 

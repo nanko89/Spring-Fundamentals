@@ -3,6 +3,7 @@ package com.example.coffeeshop.service;
 import com.example.coffeeshop.model.entity.Order;
 import com.example.coffeeshop.model.service.OrderServiceModel;
 import com.example.coffeeshop.model.service.UserServiceModel;
+import com.example.coffeeshop.model.view.OrderViewModel;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface OrderService {
 
     Integer sumTotalTimeToOrder();
 
-    List<Order> getAllOrders();
+    List<OrderViewModel> getAllOrders();
 
     void readyOrder(Long id);
 

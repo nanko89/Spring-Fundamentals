@@ -3,6 +3,7 @@ package com.example.coffeeshop.service.impl;
 
 import com.example.coffeeshop.model.entity.User;
 import com.example.coffeeshop.model.service.UserServiceModel;
+import com.example.coffeeshop.model.view.UserViewModel;
 import com.example.coffeeshop.repository.UserRepository;
 import com.example.coffeeshop.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -78,11 +79,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllEmployees() {
+    public List<UserViewModel> getAllEmployees() {
 
         return userRepository.findAll()
                 .stream()
                 .sorted(Comparator.comparingInt(u -> u.getOrders().size()))
+                .map(user -> new UserViewModel()
+                        .setUsername(user.getUsername())
+                        .setOrdersCount(user.getOrders().size()))
                 .collect(Collectors.toList());
     }
 }
