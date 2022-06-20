@@ -1,29 +1,30 @@
-package com.example.coffeeshop.model.biding;
+package com.example.coffeeshop.model.binding;
 
-import com.example.coffeeshop.model.entity.CategoryEnum;
+import com.example.coffeeshop.model.entity.enums.CategoryName;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class OrderAddBindingModel {
-
+    @NotBlank
     @Size(min = 3, max = 20)
     private String name;
-    @NotNull
     @Positive
+    @NotNull
     private BigDecimal price;
-    @PastOrPresent
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @PastOrPresent
     private LocalDateTime orderTime;
     @NotNull
-    private CategoryEnum category;
-    @Size(min=5)
+    private CategoryName category;
+    @NotBlank
+    @Size(min = 5)
     private String description;
+
+    public OrderAddBindingModel() {
+    }
 
     public String getName() {
         return name;
@@ -52,11 +53,11 @@ public class OrderAddBindingModel {
         return this;
     }
 
-    public CategoryEnum getCategory() {
+    public CategoryName getCategory() {
         return category;
     }
 
-    public OrderAddBindingModel setCategory(CategoryEnum category) {
+    public OrderAddBindingModel setCategory(CategoryName category) {
         this.category = category;
         return this;
     }

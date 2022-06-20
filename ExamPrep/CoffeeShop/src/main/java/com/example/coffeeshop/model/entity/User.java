@@ -5,18 +5,21 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
+public class User extends BaseEntity{
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "username", unique = true, nullable = false)
     private String username;
-    @Column(nullable = true)
+
+    @Column(name = "first_name")
     private String firstName;
-    @Column(nullable = false)
+
+    @Column(name = "last_name")
     private String lastName;
-    @Column(nullable = false, unique = true)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
+
     @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
     private List<Order> orders;
 
@@ -29,24 +32,6 @@ public class User extends BaseEntity {
 
     public User setUsername(String username) {
         this.username = username;
-        return this;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public User setFirstName(String firstName) {
-        this.firstName = firstName;
-        return this;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public User setLastName(String lastName) {
-        this.lastName = lastName;
         return this;
     }
 
@@ -65,6 +50,24 @@ public class User extends BaseEntity {
 
     public User setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public User setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public User setLastName(String lastName) {
+        this.lastName = lastName;
         return this;
     }
 

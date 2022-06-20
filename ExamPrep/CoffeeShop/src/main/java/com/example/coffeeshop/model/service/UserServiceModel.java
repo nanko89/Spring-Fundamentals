@@ -4,10 +4,13 @@ public class UserServiceModel {
 
     private Long id;
     private String username;
+    private String email;
     private String firstName;
     private String lastName;
-    private String email;
     private String password;
+
+    public UserServiceModel() {
+    }
 
     public Long getId() {
         return id;
@@ -27,6 +30,15 @@ public class UserServiceModel {
         return this;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public UserServiceModel setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -42,15 +54,6 @@ public class UserServiceModel {
 
     public UserServiceModel setLastName(String lastName) {
         this.lastName = lastName;
-        return this;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public UserServiceModel setEmail(String email) {
-        this.email = email;
         return this;
     }
 

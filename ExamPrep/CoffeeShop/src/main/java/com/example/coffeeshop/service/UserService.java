@@ -2,21 +2,19 @@ package com.example.coffeeshop.service;
 
 import com.example.coffeeshop.model.entity.User;
 import com.example.coffeeshop.model.service.UserServiceModel;
-import com.example.coffeeshop.model.view.UserViewModel;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
-    void registerUser(UserServiceModel userServiceModel);
+    boolean isFreeUsername(String username);
 
-    UserServiceModel findByUsernameAndPassword(String username, String password);
+    boolean isFreeEmail(String email);
 
-    void loggedIn(Long id, String username);
+    UserServiceModel registerUser(UserServiceModel userServiceModel);
 
-    User findById(Long id);
+    UserServiceModel loginUser(UserServiceModel userServiceModel);
 
-    void logout();
+    User findByUsername(String username);
 
-    List<UserViewModel> findAllUserWithTheirCountOfOrdersOrderByCount();
+    List<User> getAllEmployees();
 }

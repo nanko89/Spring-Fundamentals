@@ -24,10 +24,8 @@ spring:
         #        database-platform: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
   mvc:
-    format:
-      date-time: yyyy-MM-dd HH:mm
     hiddenmethod:
       filter:
         enabled: true
-
-
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss

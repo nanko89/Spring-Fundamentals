@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/commonds::head"></head>
+<head th:replace="fragments/commons::head"></head>
 <body class="bg-secondary">
-<header th:replace="fragments/commonds::header">
-</header>
+<header th:replace="fragments/commons::navigation"></header>
 <main role="main" class="bg-secondary">
     <div class="jumbotron">
         <div class="container text-light ">
@@ -16,22 +15,19 @@
             </h3>
         </div>
         <div class="container bg-blur rounded p-5 mt-5 w-75 ">
-            <form th:action="@{/users/login}"
-                  th:method="post"
-                  th:object="${userLoginBidingModel}"
+            <form action="/users/login" method="POST" th:object="${userLoginBindingModel}"
                   class="text-center text-light">
-                <h3 th:if="${isFound == false}" class="mt-5 text-center">
-                    <strong class="bg-blur rounded text-danger">
+                <h3 class="mt-5 text-center">
+                    <strong th:if="${isInvalid}" class="bg-blur rounded text-danger">
                         Wrong username and password combination.
                     </strong>
                 </h3>
                 <div class="form-group row">
                     <label for="username" class="col-sm-2 col-form-label">Username</label>
                     <div class="col-sm-10">
-                        <input type="text"
-                               class="form-control"
-                               th:field="*{username}"
-                               th:errorclass="is-invalid"
+                        <input th:field="*{username}"
+                               th:errorclass="'is-invalid bg-danger'"
+                                type="text" class="form-control"
                                id="username"
                                aria-describedby="usernameHelpInline" placeholder="Username">
                         <small id="usernameHelpInline"
@@ -43,10 +39,9 @@
                 <div class="form-group row">
                     <label for="password" class="col-sm-2 col-form-label">Password</label>
                     <div class="col-sm-10">
-                        <input type="password"
-                               class="form-control"
-                               th:field="*{password}"
-                               th:errorclass="is-invalid"
+                        <input th:field="*{password}"
+                               th:errorclass="'is-invalid bg-danger'"
+                                type="password" class="form-control"
                                id="password"
                                aria-describedby="passwordHelpInline" placeholder="Password">
                         <small id="passwordHelpInline"
@@ -61,6 +56,6 @@
         </div>
     </div>
 </main>
-<footer th:replace="fragments/commonds::footer"></footer>
+<footer th:replace="fragments/commons::footer"></footer>
 </body>
 </html>

@@ -1,14 +1,16 @@
 package com.example.coffeeshop.service.impl;
 
+
 import com.example.coffeeshop.model.entity.User;
 import com.example.coffeeshop.model.service.UserServiceModel;
-import com.example.coffeeshop.model.view.UserViewModel;
 import com.example.coffeeshop.repository.UserRepository;
 import com.example.coffeeshop.service.UserService;
-import com.example.coffeeshop.util.CurrentUser;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,58 +20,69 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
-    private final CurrentUser currentUser;
+    private final PasswordEncoder passwordEncoder;
 
-
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, CurrentUser currentUser) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
-        this.currentUser = currentUser;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public void registerUser(UserServiceModel userServiceModel) {
+    public boolean isFreeUsername(String username) {
+        return this.userRepository
+                .findByUsernameIgnoreCase(username)
+                .isEmpty();
+    }
+
+    @Override
+    public boolean isFreeEmail(String email) {
+        return this.userRepository
+                .findByEmailIgnoreCase(email)
+                .isEmpty();
+    }
+
+    @Override
+    public UserServiceModel registerUser(UserServiceModel userServiceModel) {
         User user = modelMapper.map(userServiceModel, User.class);
+        user.setPassword(passwordEncoder.encode(userServiceModel.getPassword()));
+
         userRepository.save(user);
+        return modelMapper.map(user, UserServiceModel.class);
     }
 
     @Override
-    public UserServiceModel findByUsernameAndPassword(String username, String password) {
+    public UserServiceModel loginUser(UserServiceModel userServiceModel) {
+        Optional<User> user = userRepository
+                .findByUsernameIgnoreCase(userServiceModel.getUsername());
 
-        Optional<User> user = userRepository.findByUsernameAndPassword(username, password);
+        if (user.isEmpty()) {
+            return null;
+        }
+
+        boolean matches = passwordEncoder
+                .matches(userServiceModel.getPassword(), user.get().getPassword());
+
+        if (!matches) {
+            return null;
+        }
 
         return modelMapper.map(user, UserServiceModel.class);
     }
 
     @Override
-    public void loggedIn(Long id, String username) {
-        currentUser.setId(id);
-        currentUser.setUsername(username);
+    public User findByUsername(String username) {
+        return this.userRepository
+                .findByUsernameIgnoreCase(username)
+                .orElse(null);
     }
 
     @Override
-    public User findById(Long id) {
-        return userRepository.findById(id).orElse(null);
-    }
+    public List<User> getAllEmployees() {
 
-    @Override
-    public void logout() {
-        currentUser.setId(null);
-        currentUser.setUsername(null);
-    }
-
-    @Override
-    public List<UserViewModel> findAllUserWithTheirCountOfOrdersOrderByCount() {
-        return userRepository.findAllByOrdersCountDesc()
+        return userRepository.findAll()
                 .stream()
-                .map(u -> {
-
-                            UserViewModel user = new UserViewModel();
-                            user.setUsername(u.getUsername());
-                            user.setCountOfOrders(u.getOrders().size());
-                            return user;
-                        }
-                )
+                .sorted(Comparator.comparingInt(u -> u.getOrders().size()))
                 .collect(Collectors.toList());
     }
 }

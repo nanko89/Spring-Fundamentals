@@ -1,7 +1,7 @@
 package com.example.coffeeshop.model.service;
 
-import com.example.coffeeshop.model.entity.CategoryEnum;
-import com.example.coffeeshop.model.entity.User;
+import com.example.coffeeshop.model.entity.Category;
+import com.example.coffeeshop.model.entity.enums.CategoryName;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -9,12 +9,14 @@ import java.time.LocalDateTime;
 public class OrderServiceModel {
 
     private Long id;
-    private String name;
     private String description;
-    private BigDecimal price;
+    private String name;
     private LocalDateTime orderTime;
-    private CategoryEnum category;
-    private User employee;
+    private BigDecimal price;
+    private CategoryName categoryName;
+
+    public OrderServiceModel() {
+    }
 
     public Long getId() {
         return id;
@@ -22,15 +24,6 @@ public class OrderServiceModel {
 
     public OrderServiceModel setId(Long id) {
         this.id = id;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public OrderServiceModel setName(String name) {
-        this.name = name;
         return this;
     }
 
@@ -43,12 +36,12 @@ public class OrderServiceModel {
         return this;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public String getName() {
+        return name;
     }
 
-    public OrderServiceModel setPrice(BigDecimal price) {
-        this.price = price;
+    public OrderServiceModel setName(String name) {
+        this.name = name;
         return this;
     }
 
@@ -61,21 +54,21 @@ public class OrderServiceModel {
         return this;
     }
 
-    public CategoryEnum getCategory() {
-        return category;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public OrderServiceModel setCategory(CategoryEnum category) {
-        this.category = category;
+    public OrderServiceModel setPrice(BigDecimal price) {
+        this.price = price;
         return this;
     }
 
-    public User getEmployee() {
-        return employee;
+    public CategoryName getCategoryName() {
+        return categoryName;
     }
 
-    public OrderServiceModel setEmployee(User employee) {
-        this.employee = employee;
+    public OrderServiceModel setCategoryName(CategoryName categoryName) {
+        this.categoryName = categoryName;
         return this;
     }
 }

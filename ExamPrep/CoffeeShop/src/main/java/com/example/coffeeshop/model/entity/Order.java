@@ -9,31 +9,22 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "orders")
-public class Order extends BaseEntity{
+public class Order extends BaseEntity {
 
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String description;
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(nullable = false, name = "order_time")
-    private LocalDateTime orderTime;
-    @Column(nullable = false, scale = 2)
+    @Column(name = "price", nullable = false)
     private BigDecimal price;
+    @Column(name = "order_time", nullable = false)
+    private LocalDateTime orderTime;
     @ManyToOne
     private Category category;
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
+    private String description;
     @ManyToOne
     private User employee;
 
     public Order() {
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Order setDescription(String description) {
-        this.description = description;
-        return this;
     }
 
     public String getName() {
@@ -42,15 +33,6 @@ public class Order extends BaseEntity{
 
     public Order setName(String name) {
         this.name = name;
-        return this;
-    }
-
-    public LocalDateTime getOrderTime() {
-        return orderTime;
-    }
-
-    public Order setOrderTime(LocalDateTime orderTime) {
-        this.orderTime = orderTime;
         return this;
     }
 
@@ -63,12 +45,30 @@ public class Order extends BaseEntity{
         return this;
     }
 
+    public LocalDateTime getOrderTime() {
+        return orderTime;
+    }
+
+    public Order setOrderTime(LocalDateTime orderTime) {
+        this.orderTime = orderTime;
+        return this;
+    }
+
     public Category getCategory() {
         return category;
     }
 
     public Order setCategory(Category category) {
         this.category = category;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Order setDescription(String description) {
+        this.description = description;
         return this;
     }
 

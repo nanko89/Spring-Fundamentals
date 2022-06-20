@@ -10,22 +10,24 @@
     <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body>
-<header th:fragment="header">
+<header th:fragment="navigation">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-info rounded">
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home</a>
                 </li>
-                <th:block th:if="${@currentUser.id == null}">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/login">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/register">Register</a>
-                    </li>
+
+                <th:block th:if="${session.isEmpty()}">
+                <li class="nav-item">
+                    <a class="nav-link" href="/users/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/users/register">Register</a>
+                </li>
                 </th:block>
-                <th:block th:unless="${@currentUser.id == null}">
+
+                <th:block th:unless="${session.isEmpty()}">
                 <li class="nav-item">
                     <a class="nav-link" href="/orders/add">Add Order</a>
                 </li>
@@ -38,8 +40,10 @@
         </div>
     </nav>
 </header>
+
 <footer th:fragment="footer" class="container">
     <p>&copy;SoftUni Spring Team 2022. All rights reserved.</p>
 </footer>
+
 </body>
 </html>
