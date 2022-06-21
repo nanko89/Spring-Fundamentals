@@ -12,7 +12,7 @@ public class Picture extends BaseEntity {
     @Column(name = "title")
     private String title;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "url", columnDefinition = "TEXT")
     private String url;
 
     @ManyToOne

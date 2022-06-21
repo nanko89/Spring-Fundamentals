@@ -3,13 +3,14 @@ package com.example.pathfinder.model.entity;
 import com.example.pathfinder.model.entity.enums.Level;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "routes")
 public class Route extends BaseEntity {
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "gpx_coordinates", columnDefinition = "LONGTEXT")
@@ -32,6 +33,9 @@ public class Route extends BaseEntity {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Category> categories;
+
+    @OneToMany(mappedBy = "route", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Comment> comments;
 
     public Route() {
     }
@@ -105,6 +109,15 @@ public class Route extends BaseEntity {
 
     public Route setPictures(Set<Picture> pictures) {
         this.pictures = pictures;
+        return this;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public Route setComments(List<Comment> comments) {
+        this.comments = comments;
         return this;
     }
 }
