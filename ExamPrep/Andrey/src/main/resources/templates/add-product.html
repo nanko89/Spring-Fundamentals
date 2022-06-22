@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::navigatin"></header>
+    <main>
+        <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Product</span></h1>
+        <hr class="hr-3"/>
+        <form class="mx-auto w-25 bg-blur" method="post" action="/products/add" th:object="${productAddBindingModel}">
+            <div class="form-group">
+                <div class="text-white label-holder d-flex justify-content-center">
+                    <label for="name" class="h4 mb-2">Name</label>
+                </div>
+                <input th:field="*{name}"
+                       th:errorclass="'bg-danger is-invalid'"
+                        type="text" class="form-control" id="name" name="name"/>
+                <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+            </div>
+            <div class="form-group">
+                <div class="text-white label-holder d-flex justify-content-center">
+                    <label for="description" class="h4 mb-2">Description</label>
+                </div>
+                <input th:field="*{description}"
+                       th:errorclass="'bg-danger is-invalid'"
+                        type="text" class="form-control" id="description" name="description"/>
+                <small th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></small>
+
+            </div>
+            <div class="form-group">
+                <div class="text-white label-holder d-flex justify-content-center">
+                    <label for="category" class="h4 mb-2">Category</label>
+                </div>
+                <select th:field="*{category}"
+                        th:errorclass="'bg-danger is-invalid'"
+                        class="custom-select" id="category">
+                    <option value="" selected>Category</option>
+                    <option th:each="c : ${T(com.example.andrey.model.entity.enums.Category).values()}"
+                            th:value="${c}"
+                            th:text="${c.name().substring( 0,1)} + ${c.name().substring(1)}"></option>
+                </select>
+                <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+
+            </div>
+            <div class="form-group">
+                <div class="text-white label-holder d-flex justify-content-center">
+                    <label for="sex" class="h4 mb-2">Sex</label>
+                </div>
+                <select th:field="*{sex}"
+                        th:errorclass="'bg-danger is-invalid'"
+                        class="custom-select" id="sex">
+                    <option value="" selected>Category</option>
+                    <option th:each="s : ${T(com.example.andrey.model.entity.enums.Sex).values()}"
+                            th:value="${s}"
+                            th:text="${s.name().substring(0,1) + s.name().substring(1).toLowerCase()}"></option>
+                </select>
+                <small th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}"></small>
+
+            </div>
+            <div class="form-group">
+                <div class="text-white label-holder d-flex justify-content-center">
+                    <label for="price" class="h4 mb-2">Price</label>
+                </div>
+                <input th:field="*{price}"
+                       th:errorclass="'bg-danger is-invalid'"
+                       type="number" class="form-control" id="price" name="price"/>
+                <small th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></small>
+
+            </div>
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-secondary text-white mb-3">Add Product</button>
+            </div>
+        </form>
+    </main>
+    <footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>
