@@ -1,15 +1,13 @@
 package com.example.andrey.model.binding;
 
+import com.example.andrey.model.validation.UniqueUsername;
+
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 public class UserLoginBindingModel {
     @NotBlank
-    @Size(min = 2, message = "Username must be longer than 2 symbols.")
     private String username;
     @NotBlank
-    @Size(min = 2, message = "Password must be longer than 2 symbols.")
     private String password;
 
     public UserLoginBindingModel() {

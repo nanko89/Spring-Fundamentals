@@ -1,13 +1,10 @@
 package com.example.andrey.model.service;
 
-import java.math.BigDecimal;
-
 public class UserServiceModel {
     private Long id;
     private String username;
     private String password;
     private String email;
-    private BigDecimal budget;
 
     public UserServiceModel() {
     }
@@ -45,15 +42,6 @@ public class UserServiceModel {
 
     public UserServiceModel setEmail(String email) {
         this.email = email;
-        return this;
-    }
-
-    public BigDecimal getBudget() {
-        return budget;
-    }
-
-    public UserServiceModel setBudget(BigDecimal budget) {
-        this.budget = budget;
         return this;
     }
 }

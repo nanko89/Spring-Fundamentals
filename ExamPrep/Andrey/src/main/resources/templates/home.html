@@ -1,33 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/commons::head"></head>
 <body>
-<header th:replace="fragments/commons::navigation"></header>
-
-<main>
-    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Items</span></h1>
-    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark" th:text="|Total count of items: ${items.size}|"></span></h1>
-    <hr class="hr-3"/>
-    <div class="container-fluid">
-        <div class="offers row mx-auto d-flex flex-row justify-content-center">
-            <div th:each="i : ${items}" th:object="${i}" class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
-                <a th:href="@{/item/details/{id}(id=*{id})}">
-                    <div class="card-img-top-wrapper">
-                        <img class="card-img-top" th:src="*{imgUrl}" alt="image">
-                    </div>
-                    <div class="card-body pb-1">
-                        <h5 class="card-title text-center" th:text="|Item name - *{name}|" ></h5>
-                    </div>
-                    <ul class="offer-details list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div class="card-text text-center"><span th:text="|Item price - *{price}|"></span></div>
-                        </li>
-                    </ul>
+<header th:replace="fragments/commons::navigatin"></header>
+    <main>
+        <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Products</span></h1>
+        <hr class="hr-3"/>
+        <div class="bg-blur container w-50">
+            <div class="row mb-4 d-flex justify-content-around">
+                <div th:each="p : ${products}" th:object="${p}" class="col-md-3 d-flex flex-column text-center mb-3">
+                <a th:href="@{/products/details/{id}(id=*{id})}">
+                    <img th:src="@{'/img/' + *{sex} + '-' + *{category} +'.jpg'}" class="img-thumbnail" width="200"
+                      height="200"/>
                 </a>
+                 <h5 class="text-center" th:text="*{name}"></h5>
+                <h2 class="text-center" th:text="*{price}"></h2>
+                </div>
             </div>
         </div>
-    </div>
-</main>
-<footer th:replace="fragments/commons::footer"></footer>
+    </main>
+    <span style="visibility: hidden">...</span>
+    <footer th:replace="fragments/commons::footer"></footer>
 </body>
 </html>

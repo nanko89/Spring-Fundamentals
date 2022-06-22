@@ -1,27 +1,23 @@
-package com.example.andrey.model.service;
-
-import com.example.andrey.model.entity.enums.CategoryName;
-import com.example.andrey.model.entity.enums.Gender;
+package com.example.andrey.model.view;
 
 import java.math.BigDecimal;
 
-public class ItemServiceModel {
-
+public class ProductViewModel {
     private Long id;
     private String name;
     private String description;
-    private CategoryName category;
-    private Gender gender;
+    private String category;
+    private String sex;
     private BigDecimal price;
 
-    public ItemServiceModel() {
+    public ProductViewModel() {
     }
 
     public Long getId() {
         return id;
     }
 
-    public ItemServiceModel setId(Long id) {
+    public ProductViewModel setId(Long id) {
         this.id = id;
         return this;
     }
@@ -30,7 +26,7 @@ public class ItemServiceModel {
         return name;
     }
 
-    public ItemServiceModel setName(String name) {
+    public ProductViewModel setName(String name) {
         this.name = name;
         return this;
     }
@@ -39,26 +35,26 @@ public class ItemServiceModel {
         return description;
     }
 
-    public ItemServiceModel setDescription(String description) {
+    public ProductViewModel setDescription(String description) {
         this.description = description;
         return this;
     }
 
-    public CategoryName getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public ItemServiceModel setCategory(CategoryName category) {
+    public ProductViewModel setCategory(String category) {
         this.category = category;
         return this;
     }
 
-    public Gender getGender() {
-        return gender;
+    public String getSex() {
+        return sex;
     }
 
-    public ItemServiceModel setGender(Gender gender) {
-        this.gender = gender;
+    public ProductViewModel setSex(String sex) {
+        this.sex = sex;
         return this;
     }
 
@@ -66,7 +62,7 @@ public class ItemServiceModel {
         return price;
     }
 
-    public ItemServiceModel setPrice(BigDecimal price) {
+    public ProductViewModel setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }

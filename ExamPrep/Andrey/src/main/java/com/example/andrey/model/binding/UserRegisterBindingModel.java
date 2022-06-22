@@ -1,24 +1,23 @@
 package com.example.andrey.model.binding;
 
+import com.example.andrey.model.validation.UniqueEmail;
+import com.example.andrey.model.validation.UniqueUsername;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
-import java.math.BigDecimal;
 
 public class UserRegisterBindingModel {
-    @NotBlank(message = "Username cannot be empty.")
-    @Size(min = 2, message = "Username must be more than two character.")
+    @NotBlank(message = "Username must not be empty")
+    @UniqueUsername
     private String username;
-    @Email(message = "Email must be valid.")
-    private String email;
-    @Positive(message ="Budget must be more or equal to 0.")
-    private BigDecimal budget;
-    @NotBlank(message = "Password cannot be empty")
-    @Size(min = 2, message = "Password must be more than two character.")
+    @NotBlank(message = "Password must not be empty")
     private String password;
-    @NotBlank(message = "Password cannot be empty")
-    @Size(min = 2, message = "Password must be more than two character")
+    @NotBlank(message = "Email must not be empty")
+    @Email(message = "Invalid email")
+    @UniqueEmail
+    private String email;
+
+    @NotBlank
     private String confirmPassword;
 
     public UserRegisterBindingModel() {
@@ -33,30 +32,21 @@ public class UserRegisterBindingModel {
         return this;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public UserRegisterBindingModel setEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public BigDecimal getBudget() {
-        return budget;
-    }
-
-    public UserRegisterBindingModel setBudget(BigDecimal budget) {
-        this.budget = budget;
-        return this;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public UserRegisterBindingModel setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public UserRegisterBindingModel setEmail(String email) {
+        this.email = email;
         return this;
     }
 

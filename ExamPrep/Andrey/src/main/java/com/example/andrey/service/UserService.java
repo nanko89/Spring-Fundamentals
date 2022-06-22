@@ -3,10 +3,11 @@ package com.example.andrey.service;
 import com.example.andrey.model.service.UserServiceModel;
 
 public interface UserService {
+    boolean isFreeUsername(String username);
 
-    UserServiceModel loginUser(String username, String password);
+    boolean isFreeEmail(String email);
 
-    boolean existByUsername(String username);
+    UserServiceModel login(UserServiceModel userServiceModel);
 
-    void saveUser(UserServiceModel userServiceModel);
+    void registerUser(UserServiceModel userServiceModel);
 }

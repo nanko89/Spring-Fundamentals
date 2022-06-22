@@ -1,33 +1,34 @@
 package com.example.andrey.model.entity;
 
-import com.example.andrey.model.entity.enums.Gender;
+import com.example.andrey.model.entity.enums.Category;
+import com.example.andrey.model.entity.enums.Sex;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "items")
-public class Item extends BaseEntity{
+@Table(name = "products")
+public class Product extends BaseEntity{
 
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
-    @Column(name = "price", nullable = false)
+    @Column(name = "price")
     private BigDecimal price;
-    @ManyToOne
+    @Enumerated(EnumType.STRING)
     private Category category;
     @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private Sex sex;
 
-    public Item() {
+    public Product() {
     }
 
     public String getName() {
         return name;
     }
 
-    public Item setName(String name) {
+    public Product setName(String name) {
         this.name = name;
         return this;
     }
@@ -36,7 +37,7 @@ public class Item extends BaseEntity{
         return description;
     }
 
-    public Item setDescription(String description) {
+    public Product setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -45,7 +46,7 @@ public class Item extends BaseEntity{
         return price;
     }
 
-    public Item setPrice(BigDecimal price) {
+    public Product setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }
@@ -54,17 +55,17 @@ public class Item extends BaseEntity{
         return category;
     }
 
-    public Item setCategory(Category category) {
+    public Product setCategory(Category category) {
         this.category = category;
         return this;
     }
 
-    public Gender getGender() {
-        return gender;
+    public Sex getSex() {
+        return sex;
     }
 
-    public Item setGender(Gender gender) {
-        this.gender = gender;
+    public Product setSex(Sex sex) {
+        this.sex = sex;
         return this;
     }
 }

@@ -1,67 +1,54 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/commons::head"></head>
-
 <body>
-<header th:replace="fragments/commons::navigation"></header>
-<main>
-    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Register</span></h1>
-    <hr class="hr-3"/>
-    <form class="mx-auto mb-5 text-center w-25 bg-dark p-3 rounded" action="/user/register" method="post" th:object="${userRegisterBindingModel}">
-        <div class="form-group">
-            <div class="label-holder textCol d-flex justify-content-center">
-                <label for="username" class="h4 mb-2 text-white">Username</label>
+<header th:replace="fragments/commons::navigatin"></header>
+    <main>
+        <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Register</span></h1>
+        <hr class="hr-3"/>
+        <form class="mx-auto w-25 bg-blur" action="/users/register" method="post" th:object="${userRegisterBindingModel}">
+            <div class="form-group">
+                <div class="label-holder textCol d-flex justify-content-center">
+                    <label for="username" class="h4 mb-2 text-white">Username</label>
+                </div>
+                <input th:field="*{username}"
+                       th:errorclass="'bg-danger is-invalid'"
+                        type="text" class="form-control" id="username" name="username"/>
+                <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
             </div>
-            <input th:field="*{username}"
-                   th:errorclass="bg-danger"
-                   type="text" class="form-control" id="username" name="username"/>
-            <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
-                   class="text-danger">Incorrect username!</small>
-        </div>
-        <div class="form-group">
-            <div class="label-holder text-white textCol d-flex justify-content-center">
-                <label for="email" class="h4 mb-2">Email</label>
+            <div class="form-group">
+                <div class="label-holder text-white textCol d-flex justify-content-center">
+                    <label for="email" class="h4 mb-2">Email</label>
+                </div>
+                <input th:field="*{email}"
+                       th:errorclass="'bg-danger is-invalid'"
+                        type="email" class="form-control" id="email" name="email"/>
+                <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
             </div>
-            <input th:field="*{email}"
-                   th:errorclass="bg-danger"
-                    type="email" class="form-control" id="email" name="email"/>
-            <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-                    class="text-danger">Incorrect email!</small>
-        </div>
-        <div class="form-group">
-            <div class="label-holder text-white textCol d-flex justify-content-center">
-                <label for="budget" class="h4 mb-2">User budget</label>
+            <div class="form-group">
+                <div class="label-holder text-white textCol d-flex justify-content-center">
+                    <label for="password" class="h4 mb-2">Password</label>
+                </div>
+                <input th:field="*{password}"
+                       th:errorclass="'bg-danger is-invalid'"
+                        type="password" class="form-control" id="password" name="password"/>
+                <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
             </div>
-            <input th:field="*{budget}"
-                   th:errorclass="bg-danger"
-                    type="number"  class="form-control" id="budget" name="budget" />
-			<small th:if="${#fields.hasErrors('budget')}" th:errors="*{budget}"
-                    class="text-danger">Incorrect budget!</small>
-
-        </div>
-        <div class="form-group">
-            <div class="label-holder text-white textCol d-flex justify-content-center">
-                <label for="password" class="h4 mb-2">Password</label>
+            <div class="form-group">
+                <div class="label-holder text-white textCol d-flex justify-content-center">
+                    <label for="confirmPassword" class="h4 mb-2">Confirm Password</label>
+                </div>
+                <input th:field="*{confirmPassword}"
+                       th:errorclass="'bg-danger is-invalid'"
+                        type="password" class="form-control" id="confirmPassword" name="confirmPassword"/>
+                <small th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></small>
             </div>
-            <input  th:field="*{password}"
-                    th:errorclass="bg-danger"
-                    type="password" class="form-control" id="password" name="password" />
-            <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-                    class="text-danger">Incorrect pasword!</small>
-        </div>
-        <div class="form-group">
-            <div class="label-holder text-white textCol d-flex justify-content-center">
-                <label for="confirmPassword" class="h4 mb-2">Confirm Password</label>
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-secondary text-white mb-3" value="Register">Register</button>
             </div>
-            <input th:field="*{confirmPassword}"
-                    type="password" class="form-control" id="confirmPassword" name="confirmPassword"/>
-  
-        </div>
-        <div class="button-holder d-flex justify-content-center">
-            <button type="submit" class="btn btn-secondary text-white mb-3" value="Register"\>Register</button>
-        </div>
-    </form>
-</main>
-<footer th:replace="fragments/commons::footer"></footer>
+        </form>
+    </main>
+    <footer th:replace="fragments/commons::footer"></footer>
 </body>
 </html>

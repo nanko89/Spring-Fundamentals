@@ -1,10 +1,10 @@
 package com.example.andrey.model.entity;
 
+import com.example.andrey.model.entity.BaseEntity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "users")
@@ -12,12 +12,10 @@ public class User extends BaseEntity {
 
     @Column(name = "username", unique = true, nullable = false)
     private String username;
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
     @Column(name = "password", nullable = false)
     private String password;
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
-    @Column(name = "budget", nullable = false)
-    private BigDecimal budget;
 
     public User() {
     }
@@ -31,15 +29,6 @@ public class User extends BaseEntity {
         return this;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public User setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -49,12 +38,12 @@ public class User extends BaseEntity {
         return this;
     }
 
-    public BigDecimal getBudget() {
-        return budget;
+    public String getPassword() {
+        return password;
     }
 
-    public User setBudget(BigDecimal budget) {
-        this.budget = budget;
+    public User setPassword(String password) {
+        this.password = password;
         return this;
     }
 }
