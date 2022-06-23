@@ -15,6 +15,6 @@ public class DataBaseInit implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        categoryService.initCategories();
+        this.categoryService.initCategories();
     }
 }

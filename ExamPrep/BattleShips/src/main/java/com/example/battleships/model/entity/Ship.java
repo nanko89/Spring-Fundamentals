@@ -4,22 +4,26 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ships")
 public class Ship extends BaseEntity {
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
+
     @Column(name = "health", nullable = false)
-    private Integer health;
+    private Long health;
+
     @Column(name = "power", nullable = false)
-    private Integer power;
+    private Long power;
+
     @Column(name = "created", nullable = false)
-    private LocalDate created;
+    private LocalDateTime created;
+
     @ManyToOne
     private Category category;
+
     @ManyToOne
     private User user;
 
@@ -30,47 +34,53 @@ public class Ship extends BaseEntity {
         return name;
     }
 
-    public void setName(String name) {
+    public Ship setName(String name) {
         this.name = name;
+        return this;
     }
 
-    public Integer getHealth() {
+    public Long getHealth() {
         return health;
     }
 
-    public void setHealth(Integer health) {
+    public Ship setHealth(Long health) {
         this.health = health;
+        return this;
     }
 
-    public Integer getPower() {
+    public Long getPower() {
         return power;
     }
 
-    public void setPower(Integer power) {
+    public Ship setPower(Long power) {
         this.power = power;
+        return this;
     }
 
-    public LocalDate getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDate created) {
+    public Ship setCreated(LocalDateTime created) {
         this.created = created;
+        return this;
     }
 
     public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public Ship setCategory(Category category) {
         this.category = category;
+        return this;
     }
 
     public User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public Ship setUser(User user) {
         this.user = user;
+        return this;
     }
 }

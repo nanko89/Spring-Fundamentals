@@ -3,11 +3,10 @@ package com.example.battleships.model.service;
 import com.example.battleships.model.entity.Category;
 import com.example.battleships.model.entity.User;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 public class ShipServiceModel {
+
     private Long id;
     private String name;
     private Integer health;
@@ -81,4 +80,5 @@ public class ShipServiceModel {
         this.user = user;
         return this;
     }
+
 }

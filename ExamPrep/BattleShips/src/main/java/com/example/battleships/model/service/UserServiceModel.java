@@ -1,16 +1,11 @@
 package com.example.battleships.model.service;
 
-import com.example.battleships.service.UserService;
-
-import javax.persistence.Column;
-
 public class UserServiceModel {
     private Long id;
     private String username;
-    private String fullName;
     private String password;
     private String email;
-
+    private String fullName;
 
     public UserServiceModel() {
     }
@@ -19,39 +14,44 @@ public class UserServiceModel {
         return id;
     }
 
-    public void setId(Long id) {
+    public UserServiceModel setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public UserServiceModel setUsername(String username) {
         this.username = username;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public UserServiceModel setPassword(String password) {
         this.password = password;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public UserServiceModel setEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public UserServiceModel setFullName(String fullName) {
+        this.fullName = fullName;
+        return this;
     }
 }

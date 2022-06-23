@@ -1,29 +1,29 @@
 package com.example.battleships.model.binding;
 
-import com.example.battleships.model.validator.UniqueEmail;
-import com.example.battleships.model.validator.UniqueUsername;
+import com.example.battleships.model.validation.UniqueEmail;
+import com.example.battleships.model.validation.UniqueUsername;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class UserRegisterBindingModel {
-    @NotBlank(message = "Username must not be empty!")
-    @Size(min = 3, max = 10, message = "Username length must be between 5 and 20 characters.")
-    @UniqueUsername(message = "Username already exist")
+    @NotBlank
+    @Size(min = 2, max = 10)
+    @UniqueUsername
     private String username;
-    @NotBlank(message = "Full name must not be empty!")
-    @Size(min = 5, max = 20, message = "Full name length must be between 5 and 20 characters.")
-    private String fullName;
-    @NotBlank(message = "Email must not be empty!")
-    @Email(message = "Invalid email")
-    @UniqueEmail(message = "Email already exist")
-    private String email;
-    @NotBlank(message = "Password must not be empty!")
-    @Size(min = 3, message = "Password length must be more than 3 characters long.")
+    @NotBlank
+    @Size(min = 3)
     private String password;
-    @NotBlank(message = "Confirm password must not be empty!")
-    @Size(min = 3, message = "Confirm password length must be more than 3 characters long.")
+    @NotBlank
+    @Email
+    @UniqueEmail
+    private String email;
+    @NotBlank
+    @Size(min = 5, max = 20)
+    private String fullName;
+    @NotBlank
+    @Size(min = 3)
     private String confirmPassword;
 
     public UserRegisterBindingModel() {
@@ -33,39 +33,44 @@ public class UserRegisterBindingModel {
         return username;
     }
 
-    public void setUsername(String username) {
+    public UserRegisterBindingModel setUsername(String username) {
         this.username = username;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public UserRegisterBindingModel setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public UserRegisterBindingModel setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public UserRegisterBindingModel setFullName(String fullName) {
+        this.fullName = fullName;
+        return this;
     }
 
     public String getConfirmPassword() {
         return confirmPassword;
     }
 
-    public void setConfirmPassword(String confirmPassword) {
+    public UserRegisterBindingModel setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+        return this;
     }
 }

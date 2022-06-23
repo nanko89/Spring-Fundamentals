@@ -7,10 +7,10 @@ import com.example.battleships.service.CategoryService;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.Locale;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
+
     private final CategoryRepository categoryRepository;
 
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
@@ -19,19 +19,16 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void initCategories() {
-        if (categoryRepository.count() == 0) {
+        if (this.categoryRepository.count() == 0) {
             Arrays.stream(CategoryEnum.values())
                     .forEach(categoryEnum -> {
                         Category category = new Category();
-                        category.setName(categoryEnum);
-                        category.setDescription("Description for " + categoryEnum.name().toLowerCase(Locale.ROOT));
-                        categoryRepository.save(category);
+                        category.setName(categoryEnum)
+                                .setDescription("Description for category ship - "
+                                        + categoryEnum.name().toLowerCase() + ".");
+
+                        this.categoryRepository.save(category);
                     });
         }
-    }
-
-    @Override
-    public Category findByCategoryEnumName(String category) {
-        return categoryRepository.findByName(CategoryEnum.valueOf(category)).orElse(null);
     }
 }

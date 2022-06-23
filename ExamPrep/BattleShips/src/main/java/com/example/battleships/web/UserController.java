@@ -20,7 +20,6 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/users")
 public class UserController {
-
     private final UserService userService;
     private final ModelMapper modelMapper;
     private final HttpSession httpSession;
@@ -33,11 +32,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(Model model) {
-
-        if (httpSession.getAttribute("user") != null){
-            return "redirect:/home";
-        }
-        if (!model.containsAttribute("isInvalid")){
+        if (!model.containsAttribute("isInvalid")) {
             model.addAttribute("isInvalid", false);
         }
         return "login";
@@ -49,26 +44,27 @@ public class UserController {
                                RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel)
+
+            redirectAttributes
+                    .addFlashAttribute("userLoginBindingModel", userLoginBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel",
                             bindingResult);
-
             return "redirect:login";
         }
 
-        UserServiceModel userServiceModel = modelMapper
-                .map(userLoginBindingModel, UserServiceModel.class);
+        UserServiceModel loginUser = userService
+                .login(modelMapper
+                        .map(userLoginBindingModel, UserServiceModel.class));
 
-        boolean loginUser = userService.loginUser(userServiceModel);
 
-        if (!loginUser){
-            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel)
+        if (loginUser == null) {
+            redirectAttributes
+                    .addFlashAttribute("userLoginBindingModel", userLoginBindingModel)
                     .addFlashAttribute("isInvalid", true);
-
             return "redirect:login";
         }
 
-        httpSession.setAttribute("user", userLoginBindingModel);
+        httpSession.setAttribute("user", loginUser);
 
         return "redirect:/";
     }
@@ -85,36 +81,33 @@ public class UserController {
 
         if (bindingResult.hasErrors() ||
                 !userRegisterBindingModel.getConfirmPassword().equals(userRegisterBindingModel.getPassword())) {
-            redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel)
+            redirectAttributes
+                    .addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel",
                             bindingResult);
-
             return "redirect:register";
         }
 
-        UserServiceModel userServiceModel = modelMapper
-                .map(userRegisterBindingModel, UserServiceModel.class);
-
-        userService.registerUser(userServiceModel);
-
-        userService.loginUser(userServiceModel);
+        userService
+                .registerUser(modelMapper
+                        .map(userRegisterBindingModel, UserServiceModel.class));
 
         return "redirect:login";
     }
 
-    @GetMapping("logout")
-    public String logout(HttpSession httpSession) {
+    @GetMapping("/logout")
+    public String logout() {
         httpSession.invalidate();
         return "redirect:/";
     }
 
     @ModelAttribute
-    public UserRegisterBindingModel userRegisterBindingModel() {
-        return new UserRegisterBindingModel();
+    public UserLoginBindingModel userLoginBindingModel(){
+        return new UserLoginBindingModel();
     }
 
     @ModelAttribute
-    public UserLoginBindingModel userLoginBindingModel(){
-        return new UserLoginBindingModel();
+    public UserRegisterBindingModel userRegisterBindingModel(){
+        return new UserRegisterBindingModel();
     }
 }

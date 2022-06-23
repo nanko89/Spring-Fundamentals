@@ -1,7 +1,5 @@
 package com.example.battleships.model.binding;
 
-import com.example.battleships.model.entity.Category;
-import com.example.battleships.model.validator.UniqueName;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
@@ -67,4 +65,5 @@ public class ShipAddBindingModel {
         this.category = category;
         return this;
     }
+
 }

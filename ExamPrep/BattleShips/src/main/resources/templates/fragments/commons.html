@@ -17,6 +17,7 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home</a>
                 </li>
+
                 <th:block th:if="${session.isEmpty()}">
                     <li class="nav-item">
                         <a class="nav-link" href="/users/login">Login</a>
@@ -25,13 +26,14 @@
                         <a class="nav-link" href="/users/register">Register</a>
                     </li>
                 </th:block>
+
                 <th:block th:unless="${session.isEmpty()}">
-                <li class="nav-item">
-                    <a class="nav-link" href="/ship/add">Add Ship</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/users/logout">Logout</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ships/add">Add Ship</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/logout">Logout</a>
+                    </li>
                 </th:block>
             </ul>
             <a class="nav-link" href="/">
@@ -40,8 +42,9 @@
         </div>
     </nav>
 </header>
+
 <footer th:fragment="footer" class="container text-white">
-    <p>&copy;SoftUni Spring Team 2021. All rights reserved.</p>
+    <p>&copy;SoftUni Spring Team 2022. All rights reserved.</p>
 </footer>
 </body>
 </html>
