@@ -51,10 +51,11 @@ public class UserController {
                             bindingResult);
             return "redirect:login";
         }
+        UserServiceModel userServiceModel = modelMapper
+                .map(userLoginBindingModel, UserServiceModel.class);
 
         UserServiceModel loginUser = userService
-                .login(modelMapper
-                        .map(userLoginBindingModel, UserServiceModel.class));
+                .login(userServiceModel);
 
 
         if (loginUser == null) {
@@ -63,6 +64,7 @@ public class UserController {
                     .addFlashAttribute("isInvalid", true);
             return "redirect:login";
         }
+
 
         httpSession.setAttribute("user", loginUser);
 

@@ -48,14 +48,12 @@ public class UserServiceImpl implements UserService {
 
         boolean matches = passwordEncoder
                 .matches(userServiceModel.getPassword(), user.get().getPassword());
-
-
-        if (!matches){
-            return null;
+        if( !matches){
+           return null;
         }
 
 
-        return modelMapper.map(user, UserServiceModel.class);
+        return modelMapper.map(user.get(), UserServiceModel.class);
     }
 
     @Override
@@ -68,5 +66,12 @@ public class UserServiceImpl implements UserService {
                         .encode(userServiceModel.getPassword()));
 
         userRepository.save(user);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return this.userRepository
+                .findByUsername(username)
+                .orElse(null);
     }
 }

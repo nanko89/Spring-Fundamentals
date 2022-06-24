@@ -1,5 +1,7 @@
 package com.example.battleships.model.binding;
 
+import com.example.battleships.model.entity.enums.CategoryEnum;
+import com.example.battleships.model.validation.UniqueName;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
@@ -8,7 +10,7 @@ import java.time.LocalDate;
 public class ShipAddBindingModel {
     @NotBlank
     @Size(min = 2, max = 10)
-    @UniqueName(message = "Name is already exist")
+    @UniqueName
     private String name;
     @NotNull
     @Positive
@@ -20,7 +22,7 @@ public class ShipAddBindingModel {
     @PastOrPresent
     private LocalDate created;
     @NotNull
-    private String category;
+    private CategoryEnum category;
 
     public ShipAddBindingModel() {
     }
@@ -57,13 +59,12 @@ public class ShipAddBindingModel {
         this.created = created;
     }
 
-    public String getCategory() {
+    public CategoryEnum getCategory() {
         return category;
     }
 
-    public ShipAddBindingModel setCategory(String category) {
+    public ShipAddBindingModel setCategory(CategoryEnum category) {
         this.category = category;
         return this;
     }
-
 }

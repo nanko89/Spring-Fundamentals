@@ -2,6 +2,7 @@ package com.example.battleships.model.service;
 
 import com.example.battleships.model.entity.Category;
 import com.example.battleships.model.entity.User;
+import com.example.battleships.model.entity.enums.CategoryEnum;
 
 import java.time.LocalDate;
 
@@ -12,7 +13,7 @@ public class ShipServiceModel {
     private Integer health;
     private Integer power;
     private LocalDate created;
-    private Category category;
+    private CategoryEnum category;
     private User user;
 
     public ShipServiceModel() {
@@ -63,11 +64,11 @@ public class ShipServiceModel {
         return this;
     }
 
-    public Category getCategory() {
+    public CategoryEnum getCategory() {
         return category;
     }
 
-    public ShipServiceModel setCategory(Category category) {
+    public ShipServiceModel setCategory(CategoryEnum category) {
         this.category = category;
         return this;
     }
