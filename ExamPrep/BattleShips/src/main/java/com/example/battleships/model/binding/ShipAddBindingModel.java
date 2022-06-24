@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ShipAddBindingModel {
     @NotBlank
@@ -18,7 +19,7 @@ public class ShipAddBindingModel {
     @NotNull
     @Positive
     private Integer health;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @PastOrPresent
     private LocalDate created;
     @NotNull
@@ -55,8 +56,9 @@ public class ShipAddBindingModel {
         return created;
     }
 
-    public void setCreated(LocalDate created) {
+    public ShipAddBindingModel setCreated(LocalDate created) {
         this.created = created;
+        return this;
     }
 
     public CategoryEnum getCategory() {
