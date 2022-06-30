@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::navigatin"></header>
+    <main>
+        <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Details</span></h1>
+        <hr class="my-3"/>
+        <div class="container-fluid bg-blur w-50">
+            <div class="row justify-content-center">
+                <form class="w-50 justify-content-center" th:object="${product}">
+                    <div class="label mt-2">
+                        <h2 class="text-white text-center" th:text="*{name}">Buzzer</h2>
+                    </div>
+                    <div class="label mt-4">
+                        <img th:src="@{'/img/' + *{sex} + '-' + *{category} +'.jpg'}" class="img-thumbnail" width="200" height="200"/>
+                        <h3 class="text-white text-center"th:text="*{description}">80% silk</h3>
+                    </div>
+                    <div class="label mt-4">
+                        <h3 class="text-white text-center mb-3" th:text="*{price}">65.00</h3>
+                    </div>
+                    <div class="button-holder d-flex justify-content-center">
+                        <a class="btn btn-danger text-white mb-3"
+                                th:href="@{/products/delete/{id}(id=*{id})}">Delete Product</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>
